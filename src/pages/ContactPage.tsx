@@ -106,11 +106,11 @@ export default function ContactPage() {
       <main className="flex-grow">
 
         {/* 2. HERO BANNER */}
-        <section className="relative overflow-hidden" style={{ minHeight: '440px' }}>
+        <section className="relative overflow-hidden" style={{ minHeight: '550px' }}>
           {/* Background Banner Image */}
           <div className="absolute inset-0 w-full h-full">
             <img
-              src="/assets/home/contactbanner.png"
+              src="/assets/home/contact.png"
               alt="Contact Banner"
               className="w-full h-full object-cover"
             />
@@ -133,7 +133,7 @@ export default function ContactPage() {
             ))}
           </div>
 
-          <div className="flex items-center justify-between px-20 py-16 max-w-7xl mx-auto relative">
+          <div className="flex items-center justify-between pl-8 sm:pl-16 md:pl-24 pr-8 py-16 max-w-7xl w-full relative">
             {/* Left Content */}
             <div className="flex-1 max-w-lg z-10">
               <div className="flex items-center gap-2 mb-4">

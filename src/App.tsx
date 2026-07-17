@@ -12,6 +12,7 @@ import SolutionDetailPage from "./pages/SolutionDetailPage";
 import ServicesPage from "./pages/ServicesPage";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
 import PortfolioPage from "./pages/PortfolioPage";
+import PortfolioDetailPage from "./pages/PortfolioDetailPage";
 import ContactPage from "./pages/ContactPage";
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/services/:service" element={<ServiceDetailPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/portfolio/:projectId" element={<PortfolioDetailPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </div>
