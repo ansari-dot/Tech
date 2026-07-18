@@ -1,736 +1,2420 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { ShieldCheck, HeartPulse, Settings, TrendingUp, Database, GitBranch, Users as UsersIcon, Shield, ClipboardList, Video, BarChart2, FileText, Smartphone, Activity, Layout, Cpu, CheckCircle, Briefcase, Users, Globe, Award, ArrowRight, ShoppingCart, Factory, GraduationCap, Truck, Building2, Zap } from "lucide-react";
+import {
+  useParams,
+  useNavigate
+} from "react-router-dom";
+
+import {
+  ShieldCheck,
+  Database,
+  Workflow,
+  Users,
+  Lock,
+  BarChart3,
+  Check,
+  ArrowRight,
+  Code,
+  Cpu,
+  Layers
+} from "lucide-react";
+
+import {
+  useEffect,
+  useState
+} from "react";
+
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import { useState, useEffect } from "react";
 
-// Industry data configuration
-const industryData: Record<string, any> = {
-  healthcare: {
-    name: "Healthcare",
-    tagline: "Solutions",
-    description: "We deliver secure, compliant, and scalable healthcare solutions that improve patient outcomes and streamline operations.",
-    heroImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop",
-    features: [
-      { icon: ShieldCheck, title: "Secure & Compliant", description: "HIPAA-compliant solutions to protect sensitive data.", color: "#0a5fd6" },
-      { icon: HeartPulse, title: "Better Patient Outcomes", description: "Technology that enhances care delivery and patient experience.", color: "#22c55e" },
-      { icon: Settings, title: "Operational Efficiency", description: "Streamlined workflows to reduce costs and improve productivity.", color: "#0a5fd6" },
-      { icon: TrendingUp, title: "Scalable Solutions", description: "Future-ready systems that grow with your organization.", color: "#0a5fd6" }
-    ],
-    overviewTitle: "Transforming Healthcare",
-    overviewHighlight: "Technology",
-    overviewText: "From patient management systems to telemedicine platforms, we build digital solutions that empower healthcare providers to deliver better care, ensure compliance, and drive efficiency across the ecosystem.",
-    checkItems: [
-      { text: "Patient-Centric Solutions", subtext: "Improving patient engagement and outcomes with innovative digital tools." },
-      { text: "Data Security & Compliance", subtext: "Ensuring HIPAA compliance and robust data protection." },
-      { text: "Seamless Integration", subtext: "Integrating with existing systems for unified and efficient operations." },
-      { text: "Scalable & Future-Ready", subtext: "Building solutions that adapt to the evolving healthcare landscape." }
-    ],
-    challenges: [
-      { icon: Database, title: "Data Silos", description: "Fragmented data across systems hinders visibility and decision-making.", bgColor: "#fff7ed", iconColor: "#f97316" },
-      { icon: GitBranch, title: "Operational Inefficiencies", description: "Manual processes and legacy systems slow down operations and increase costs.", bgColor: "#f5f3ff", iconColor: "#a855f7" },
-      { icon: UsersIcon, title: "Patient Engagement", description: "Lack of engagement tools leads to poor communication and outcomes.", bgColor: "#dbeafe", iconColor: "#3b82f6" },
-      { icon: Shield, title: "Compliance & Security", description: "Ensuring regulatory compliance while protecting sensitive patient data.", bgColor: "#d1fae5", iconColor: "#10b981" }
-    ],
-    solutions: [
-      { icon: ClipboardList, title: "Patient Management Systems", description: "Streamline patient registration, appointments, and records management.", iconColor: "#6366f1" },
-      { icon: Video, title: "Telemedicine Solutions", description: "Enable remote consultations and virtual care with secure and reliable platforms.", iconColor: "#6366f1" },
-      { icon: BarChart2, title: "Health Data & Analytics", description: "Leverage data insights to improve clinical decisions and operational efficiency.", iconColor: "#ec4899" },
-      { icon: FileText, title: "EHR/EMR Integration", description: "Seamlessly integrate with Electronic Health Record systems.", iconColor: "#06b6d4" },
-      { icon: Smartphone, title: "Mobile Health Apps", description: "Engage patients and improve care with mobile-first healthcare applications.", iconColor: "#6366f1" },
-      { icon: Activity, title: "Remote Patient Monitoring", description: "Monitor patient health in real-time and enable proactive care.", iconColor: "#10b981" },
-      { icon: Layout, title: "Healthcare Portals", description: "Build secure patient and provider portals for better communication and access.", iconColor: "#8b5cf6" },
-      { icon: Cpu, title: "AI-Powered Diagnostics", description: "Use AI and ML to assist in accurate diagnostics and personalized treatment.", iconColor: "#06b6d4" }
-    ]
-  },
-  fintech: {
-    name: "Fintech",
-    tagline: "Solutions",
-    description: "Powering financial services with robust, secure, and intelligent solutions that enhance trust and efficiency.",
-    heroImage: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&auto=format&fit=crop",
-    features: [
-      { icon: Shield, title: "Bank-Grade Security", description: "Multi-layered security protocols to protect financial data.", color: "#0a5fd6" },
-      { icon: TrendingUp, title: "Real-Time Processing", description: "Fast and reliable transaction processing systems.", color: "#22c55e" },
-      { icon: Database, title: "Data Analytics", description: "Advanced analytics for better financial decision-making.", color: "#0a5fd6" },
-      { icon: ShieldCheck, title: "Regulatory Compliance", description: "Solutions that meet financial industry regulations.", color: "#0a5fd6" }
-    ],
-    overviewTitle: "Transforming Financial",
-    overviewHighlight: "Services",
-    overviewText: "From digital banking to payment gateways, we build secure and scalable fintech solutions that drive innovation and enhance customer trust.",
-    checkItems: [
-      { text: "Secure Payment Solutions", subtext: "Building trusted payment systems with advanced security features." },
-      { text: "Digital Banking Platforms", subtext: "Modern banking experiences for web and mobile." },
-      { text: "Risk Management Tools", subtext: "AI-powered risk assessment and fraud detection." },
-      { text: "Regulatory Compliance", subtext: "Solutions that adhere to financial regulations and standards." }
-    ],
-    challenges: [
-      { icon: Shield, title: "Security Threats", description: "Protecting against cyber attacks and fraud in financial systems.", bgColor: "#ffedd5", iconColor: "#f97316" },
-      { icon: Database, title: "Legacy Systems", description: "Modernizing outdated infrastructure while maintaining operations.", bgColor: "#ede9fe", iconColor: "#8b5cf6" },
-      { icon: Users, title: "Customer Trust", description: "Building and maintaining trust in digital financial services.", bgColor: "#dbeafe", iconColor: "#0a5fd6" },
-      { icon: GitBranch, title: "Regulatory Changes", description: "Adapting to evolving financial regulations and compliance requirements.", bgColor: "#f0fdfa", iconColor: "#0d9488" }
-    ],
-    solutions: [
-      { icon: Smartphone, title: "Digital Banking Apps", description: "Modern mobile and web banking solutions for customers.", iconColor: "#6366f1" },
-      { icon: Shield, title: "Payment Gateways", description: "Secure and fast payment processing systems.", iconColor: "#10b981" },
-      { icon: BarChart2, title: "Trading Platforms", description: "Real-time trading and investment management systems.", iconColor: "#ec4899" },
-      { icon: Database, title: "Core Banking Systems", description: "Robust backend systems for banking operations.", iconColor: "#06b6d4" },
-      { icon: Activity, title: "Fraud Detection", description: "AI-powered fraud detection and prevention systems.", iconColor: "#f59e0b" },
-      { icon: FileText, title: "Loan Management", description: "End-to-end loan processing and management solutions.", iconColor: "#8b5cf6" },
-      { icon: Cpu, title: "Blockchain Solutions", description: "Decentralized finance and blockchain-based applications.", iconColor: "#6366f1" },
-      { icon: Layout, title: "Wealth Management", description: "Portfolio management and investment advisory platforms.", iconColor: "#06b6d4" }
-    ]
-  },
-  "retail-e-commerce": {
-    name: "Retail & E-commerce",
-    tagline: "Solutions",
-    description: "Delivering seamless digital experiences, smart inventory management, and data-driven retail solutions.",
-    heroImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&auto=format&fit=crop",
-    features: [
-      { icon: ShoppingCart, title: "Seamless Shopping", description: "Intuitive e-commerce experiences that drive conversions.", color: "#0a5fd6" },
-      { icon: Database, title: "Inventory Management", description: "Real-time inventory tracking and management systems.", color: "#22c55e" },
-      { icon: TrendingUp, title: "Sales Analytics", description: "Data-driven insights to optimize sales and marketing.", color: "#0a5fd6" },
-      { icon: Users, title: "Customer Engagement", description: "Personalized experiences that increase customer loyalty.", color: "#0a5fd6" }
-    ],
-    overviewTitle: "Revolutionizing Retail",
-    overviewHighlight: "Experiences",
-    overviewText: "From online stores to omnichannel platforms, we create retail solutions that enhance customer experience, streamline operations, and drive growth.",
-    checkItems: [
-      { text: "E-commerce Platforms", subtext: "Building scalable online stores with seamless checkout experiences." },
-      { text: "Inventory & Supply Chain", subtext: "Smart systems for inventory management and logistics." },
-      { text: "Customer Personalization", subtext: "AI-driven recommendations and personalized shopping experiences." },
-      { text: "Omnichannel Solutions", subtext: "Unified experiences across online and offline channels." }
-    ],
-    challenges: [
-      { icon: ShoppingCart, title: "Cart Abandonment", description: "High cart abandonment rates reduce conversion and revenue.", bgColor: "#ffedd5", iconColor: "#f97316" },
-      { icon: Database, title: "Inventory Issues", description: "Poor inventory management leads to stockouts and overstock.", bgColor: "#ede9fe", iconColor: "#8b5cf6" },
-      { icon: Users, title: "Customer Retention", description: "Difficulty in retaining customers and building loyalty.", bgColor: "#dbeafe", iconColor: "#0a5fd6" },
-      { icon: TrendingUp, title: "Competition", description: "Standing out in a crowded and competitive market.", bgColor: "#f0fdfa", iconColor: "#0d9488" }
-    ],
-    solutions: [
-      { icon: ShoppingCart, title: "E-commerce Platforms", description: "Custom online stores with seamless shopping experiences.", iconColor: "#6366f1" },
-      { icon: Smartphone, title: "Mobile Commerce", description: "Native mobile apps for iOS and Android.", iconColor: "#8b5cf6" },
-      { icon: Database, title: "Inventory Management", description: "Real-time inventory tracking and warehouse management.", iconColor: "#06b6d4" },
-      { icon: Users, title: "CRM Systems", description: "Customer relationship management and loyalty programs.", iconColor: "#ec4899" },
-      { icon: BarChart2, title: "Analytics & Reporting", description: "Sales analytics and business intelligence dashboards.", iconColor: "#f59e0b" },
-      { icon: Layout, title: "POS Systems", description: "Modern point-of-sale systems for retail stores.", iconColor: "#10b981" },
-      { icon: Cpu, title: "AI Recommendations", description: "Personalized product recommendations using AI.", iconColor: "#6366f1" },
-      { icon: Activity, title: "Supply Chain Solutions", description: "End-to-end supply chain management systems.", iconColor: "#06b6d4" }
-    ]
-  },
-  manufacturing: {
-    name: "Manufacturing",
-    tagline: "Solutions",
-    description: "Optimizing production, supply chain, and operations with custom software built for manufacturing excellence.",
-    heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&auto=format&fit=crop",
-    features: [
-      { icon: Factory, title: "Production Optimization", description: "Systems that improve efficiency and reduce waste.", color: "#0a5fd6" },
-      { icon: Activity, title: "Real-Time Monitoring", description: "IoT-enabled monitoring of equipment and processes.", color: "#22c55e" },
-      { icon: Database, title: "Supply Chain", description: "End-to-end visibility across the supply chain.", color: "#0a5fd6" },
-      { icon: TrendingUp, title: "Quality Control", description: "Automated quality assurance and defect detection.", color: "#0a5fd6" }
-    ],
-    overviewTitle: "Modernizing Manufacturing",
-    overviewHighlight: "Operations",
-    overviewText: "From smart factories to predictive maintenance, we deliver manufacturing solutions that increase productivity, reduce costs, and improve quality.",
-    checkItems: [
-      { text: "Smart Manufacturing", subtext: "IoT and automation for intelligent production systems." },
-      { text: "Predictive Maintenance", subtext: "AI-powered systems to predict and prevent equipment failures." },
-      { text: "Supply Chain Visibility", subtext: "Real-time tracking and optimization of supply chain operations." },
-      { text: "Quality Assurance", subtext: "Automated inspection and quality control systems." }
-    ],
-    challenges: [
-      { icon: Settings, title: "Equipment Downtime", description: "Unplanned downtime reduces productivity and increases costs.", bgColor: "#ffedd5", iconColor: "#f97316" },
-      { icon: Database, title: "Data Silos", description: "Disconnected systems prevent visibility and decision-making.", bgColor: "#ede9fe", iconColor: "#8b5cf6" },
-      { icon: Activity, title: "Quality Issues", description: "Defects and quality problems impact customer satisfaction.", bgColor: "#dbeafe", iconColor: "#0a5fd6" },
-      { icon: TrendingUp, title: "Supply Chain", description: "Supply chain disruptions affect production schedules.", bgColor: "#f0fdfa", iconColor: "#0d9488" }
-    ],
-    solutions: [
-      { icon: Factory, title: "MES Systems", description: "Manufacturing execution systems for production management.", iconColor: "#6366f1" },
-      { icon: Activity, title: "IoT Monitoring", description: "Real-time equipment and process monitoring.", iconColor: "#10b981" },
-      { icon: Cpu, title: "Predictive Maintenance", description: "AI-powered maintenance prediction and scheduling.", iconColor: "#ec4899" },
-      { icon: Database, title: "ERP Integration", description: "Seamless integration with enterprise resource planning systems.", iconColor: "#06b6d4" },
-      { icon: BarChart2, title: "Production Analytics", description: "Real-time dashboards and production insights.", iconColor: "#f59e0b" },
-      { icon: Shield, title: "Quality Management", description: "Automated quality control and compliance tracking.", iconColor: "#8b5cf6" },
-      { icon: Layout, title: "Supply Chain", description: "Supply chain visibility and optimization platforms.", iconColor: "#6366f1" },
-      { icon: Smartphone, title: "Mobile Solutions", description: "Mobile apps for field workers and managers.", iconColor: "#06b6d4" }
-    ]
-  },
-  education: {
-    name: "Education",
-    tagline: "Solutions",
-    description: "Enabling learning with innovative EdTech solutions that engage students and empower institutions.",
-    heroImage: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&auto=format&fit=crop",
-    features: [
-      { icon: GraduationCap, title: "Interactive Learning", description: "Engaging digital learning experiences for students.", color: "#0a5fd6" },
-      { icon: Users, title: "Collaboration Tools", description: "Platforms that connect students and teachers.", color: "#22c55e" },
-      { icon: BarChart2, title: "Learning Analytics", description: "Data insights to improve educational outcomes.", color: "#0a5fd6" },
-      { icon: Smartphone, title: "Mobile Learning", description: "Learn anywhere, anytime with mobile apps.", color: "#0a5fd6" }
-    ],
-    overviewTitle: "Transforming Education",
-    overviewHighlight: "Technology",
-    overviewText: "From learning management systems to virtual classrooms, we build EdTech solutions that enhance learning experiences and educational outcomes.",
-    checkItems: [
-      { text: "Learning Management", subtext: "Comprehensive LMS platforms for course delivery and management." },
-      { text: "Virtual Classrooms", subtext: "Interactive online learning environments with collaboration tools." },
-      { text: "Student Analytics", subtext: "Track progress and identify areas for improvement." },
-      { text: "Mobile Learning", subtext: "Access educational content on any device, anywhere." }
-    ],
-    challenges: [
-      { icon: Users, title: "Student Engagement", description: "Keeping students engaged in digital learning environments.", bgColor: "#ffedd5", iconColor: "#f97316" },
-      { icon: Layout, title: "Access & Equity", description: "Ensuring all students have access to quality education.", bgColor: "#ede9fe", iconColor: "#8b5cf6" },
-      { icon: BarChart2, title: "Learning Outcomes", description: "Measuring and improving educational effectiveness.", bgColor: "#dbeafe", iconColor: "#0a5fd6" },
-      { icon: Database, title: "Legacy Systems", description: "Outdated systems limit functionality and user experience.", bgColor: "#f0fdfa", iconColor: "#0d9488" }
-    ],
-    solutions: [
-      { icon: GraduationCap, title: "Learning Management", description: "Comprehensive LMS platforms for educational institutions.", iconColor: "#6366f1" },
-      { icon: Video, title: "Virtual Classrooms", description: "Interactive online learning and collaboration tools.", iconColor: "#8b5cf6" },
-      { icon: Smartphone, title: "Mobile Learning Apps", description: "Educational apps for iOS and Android devices.", iconColor: "#ec4899" },
-      { icon: BarChart2, title: "Student Analytics", description: "Track progress and measure learning outcomes.", iconColor: "#06b6d4" },
-      { icon: FileText, title: "Assessment Tools", description: "Online testing and automated grading systems.", iconColor: "#10b981" },
-      { icon: Users, title: "Parent Portals", description: "Communication platforms for parents and schools.", iconColor: "#f59e0b" },
-      { icon: Layout, title: "Content Management", description: "Create and manage educational content easily.", iconColor: "#6366f1" },
-      { icon: Cpu, title: "AI Tutoring", description: "Personalized learning with AI-powered tutoring.", iconColor: "#06b6d4" }
-    ]
-  },
-  "logistics-supply-chain": {
-    name: "Logistics & Supply Chain",
-    tagline: "Solutions",
-    description: "Building intelligent systems that improve visibility, reduce costs, and ensure on-time deliveries.",
-    heroImage: "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=800&auto=format&fit=crop",
-    features: [
-      { icon: Truck, title: "Fleet Management", description: "Real-time tracking and management of vehicles.", color: "#0a5fd6" },
-      { icon: Globe, title: "Global Visibility", description: "End-to-end visibility across the supply chain.", color: "#22c55e" },
-      { icon: TrendingUp, title: "Route Optimization", description: "AI-powered route planning to reduce costs.", color: "#0a5fd6" },
-      { icon: Database, title: "Warehouse Systems", description: "Modern warehouse management solutions.", color: "#0a5fd6" }
-    ],
-    overviewTitle: "Optimizing Logistics",
-    overviewHighlight: "Operations",
-    overviewText: "From fleet management to warehouse systems, we create logistics solutions that improve efficiency, reduce costs, and enhance delivery performance.",
-    checkItems: [
-      { text: "Fleet & Transportation", subtext: "Real-time tracking and optimization of fleet operations." },
-      { text: "Warehouse Management", subtext: "Efficient inventory and warehouse operations management." },
-      { text: "Supply Chain Visibility", subtext: "End-to-end visibility and tracking across the supply chain." },
-      { text: "Route Optimization", subtext: "AI-powered route planning for cost and time savings." }
-    ],
-    challenges: [
-      { icon: Truck, title: "Delivery Delays", description: "Late deliveries impact customer satisfaction and costs.", bgColor: "#ffedd5", iconColor: "#f97316" },
-      { icon: Database, title: "Inventory Issues", description: "Poor inventory management leads to stockouts and overstock.", bgColor: "#ede9fe", iconColor: "#8b5cf6" },
-      { icon: Activity, title: "Visibility Gaps", description: "Lack of real-time visibility across the supply chain.", bgColor: "#dbeafe", iconColor: "#0a5fd6" },
-      { icon: TrendingUp, title: "Cost Management", description: "Rising logistics costs reduce profit margins.", bgColor: "#f0fdfa", iconColor: "#0d9488" }
-    ],
-    solutions: [
-      { icon: Truck, title: "Fleet Management", description: "Real-time vehicle tracking and fleet optimization.", iconColor: "#6366f1" },
-      { icon: Layout, title: "Warehouse Management", description: "WMS systems for efficient warehouse operations.", iconColor: "#8b5cf6" },
-      { icon: Globe, title: "Supply Chain Platform", description: "End-to-end supply chain visibility and management.", iconColor: "#06b6d4" },
-      { icon: Smartphone, title: "Driver Apps", description: "Mobile apps for drivers and delivery personnel.", iconColor: "#ec4899" },
-      { icon: BarChart2, title: "Analytics & Reporting", description: "Logistics analytics and performance dashboards.", iconColor: "#f59e0b" },
-      { icon: Cpu, title: "Route Optimization", description: "AI-powered route planning and optimization.", iconColor: "#10b981" },
-      { icon: Activity, title: "Shipment Tracking", description: "Real-time tracking for shipments and packages.", iconColor: "#6366f1" },
-      { icon: Database, title: "Inventory Management", description: "Multi-location inventory tracking and management.", iconColor: "#06b6d4" }
-    ]
-  },
-  "real-estate": {
-    name: "Real Estate",
-    tagline: "Solutions",
-    description: "Digitally transforming property management, sales, and customer experiences in the real estate sector.",
-    heroImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop",
-    features: [
-      { icon: Building2, title: "Property Management", description: "Comprehensive systems for property and tenant management.", color: "#0a5fd6" },
-      { icon: Smartphone, title: "Virtual Tours", description: "3D virtual tours and property showcasing.", color: "#22c55e" },
-      { icon: Users, title: "Tenant Portals", description: "Self-service portals for tenants and residents.", color: "#0a5fd6" },
-      { icon: BarChart2, title: "Market Analytics", description: "Real-time market data and property analytics.", color: "#0a5fd6" }
-    ],
-    overviewTitle: "Modernizing Real Estate",
-    overviewHighlight: "Management",
-    overviewText: "From property listings to tenant management, we build real estate solutions that streamline operations, enhance customer experience, and drive sales.",
-    checkItems: [
-      { text: "Property Management", subtext: "Complete systems for managing properties and tenants." },
-      { text: "Digital Marketing", subtext: "Online listings, virtual tours, and marketing automation." },
-      { text: "Tenant Experience", subtext: "Self-service portals and mobile apps for tenants." },
-      { text: "Analytics & Insights", subtext: "Market data and property performance analytics." }
-    ],
-    challenges: [
-      { icon: Building2, title: "Property Visibility", description: "Limited online presence reduces property visibility.", bgColor: "#ffedd5", iconColor: "#f97316" },
-      { icon: Users, title: "Tenant Management", description: "Manual processes slow down tenant operations.", bgColor: "#ede9fe", iconColor: "#8b5cf6" },
-      { icon: FileText, title: "Documentation", description: "Paper-based processes are inefficient and error-prone.", bgColor: "#dbeafe", iconColor: "#0a5fd6" },
-      { icon: BarChart2, title: "Market Insights", description: "Lack of data-driven insights for decision-making.", bgColor: "#f0fdfa", iconColor: "#0d9488" }
-    ],
-    solutions: [
-      { icon: Building2, title: "Property Management", description: "Complete property and tenant management systems.", iconColor: "#6366f1" },
-      { icon: Globe, title: "Listing Platforms", description: "Online property listings and search platforms.", iconColor: "#8b5cf6" },
-      { icon: Smartphone, title: "Mobile Apps", description: "Apps for buyers, tenants, and property managers.", iconColor: "#ec4899" },
-      { icon: Layout, title: "Virtual Tours", description: "3D virtual tours and property showcasing.", iconColor: "#06b6d4" },
-      { icon: Users, title: "Tenant Portals", description: "Self-service portals for rent, maintenance, and communication.", iconColor: "#10b981" },
-      { icon: FileText, title: "Document Management", description: "Digital contracts, leases, and document storage.", iconColor: "#f59e0b" },
-      { icon: BarChart2, title: "Analytics Platform", description: "Market insights and property performance analytics.", iconColor: "#6366f1" },
-      { icon: Cpu, title: "AI Property Matching", description: "Smart property recommendations for buyers and renters.", iconColor: "#06b6d4" }
-    ]
-  },
-  "energy-utilities": {
-    name: "Energy & Utilities",
-    tagline: "Solutions",
-    description: "Creating smart, reliable, and sustainable solutions for energy management and utility operations.",
-    heroImage: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&auto=format&fit=crop",
-    features: [
-      { icon: Zap, title: "Smart Grid", description: "Intelligent grid management and monitoring systems.", color: "#0a5fd6" },
-      { icon: Activity, title: "Real-Time Monitoring", description: "Monitor energy consumption and distribution in real-time.", color: "#22c55e" },
-      { icon: BarChart2, title: "Energy Analytics", description: "Data insights for optimization and efficiency.", color: "#0a5fd6" },
-      { icon: Shield, title: "Grid Security", description: "Secure systems to protect critical infrastructure.", color: "#0a5fd6" }
-    ],
-    overviewTitle: "Powering the Future",
-    overviewHighlight: "Energy",
-    overviewText: "From smart grids to renewable energy management, we deliver energy solutions that improve efficiency, reliability, and sustainability.",
-    checkItems: [
-      { text: "Smart Grid Systems", subtext: "Intelligent systems for grid management and optimization." },
-      { text: "Energy Monitoring", subtext: "Real-time monitoring and analytics for energy consumption." },
-      { text: "Renewable Integration", subtext: "Systems to manage and integrate renewable energy sources." },
-      { text: "Customer Portals", subtext: "Self-service portals for billing and usage tracking." }
-    ],
-    challenges: [
-      { icon: Zap, title: "Grid Reliability", description: "Maintaining stable and reliable energy distribution.", bgColor: "#ffedd5", iconColor: "#f97316" },
-      { icon: Activity, title: "Energy Waste", description: "Inefficient systems lead to energy waste and higher costs.", bgColor: "#ede9fe", iconColor: "#8b5cf6" },
-      { icon: Database, title: "Legacy Infrastructure", description: "Outdated systems limit efficiency and scalability.", bgColor: "#dbeafe", iconColor: "#0a5fd6" },
-      { icon: Shield, title: "Cybersecurity", description: "Protecting critical energy infrastructure from threats.", bgColor: "#f0fdfa", iconColor: "#0d9488" }
-    ],
-    solutions: [
-      { icon: Zap, title: "Smart Grid Systems", description: "Intelligent grid management and optimization platforms.", iconColor: "#6366f1" },
-      { icon: Activity, title: "Energy Monitoring", description: "Real-time energy consumption monitoring and analytics.", iconColor: "#10b981" },
-      { icon: Layout, title: "Customer Portals", description: "Self-service portals for billing and usage information.", iconColor: "#8b5cf6" },
-      { icon: Smartphone, title: "Mobile Apps", description: "Mobile apps for customers and field technicians.", iconColor: "#ec4899" },
-      { icon: BarChart2, title: "Analytics Platform", description: "Energy data analytics and reporting dashboards.", iconColor: "#f59e0b" },
-      { icon: Cpu, title: "Predictive Maintenance", description: "AI-powered equipment maintenance prediction.", iconColor: "#06b6d4" },
-      { icon: Database, title: "Asset Management", description: "Track and manage energy assets and infrastructure.", iconColor: "#6366f1" },
-      { icon: Globe, title: "Renewable Integration", description: "Systems for solar, wind, and renewable energy management.", iconColor: "#10b981" }
-    ]
-  }
+
+
+
+export default function IndustryDetailPage(){
+
+
+const {industry}=useParams<{industry:string}>();
+
+const navigate=useNavigate();
+
+
+const [activeSection,setActiveSection]=useState("industries");
+
+
+
+const handleNavClick=(section:string)=>{
+
+setActiveSection(section);
+
 };
 
-export default function IndustryDetailPage() {
-  const { industry } = useParams<{ industry: string }>();
-  const navigate = useNavigate();
-  const [activeSection, setActiveSection] = useState("industries");
 
-  const handleNavClick = (section: string) => {
-    setActiveSection(section);
-  };
 
-  const handleGetStartedClick = () => {
-    // Handle get started
-  };
+const handleGetStartedClick=()=>{};
 
-  // Get industry data
-  const data = industry ? industryData[industry] : null;
-  
-  // Handle invalid industry in useEffect
-  useEffect(() => {
-    if (!data) {
-      navigate("/industries");
-    }
-  }, [data, navigate]);
 
-  // Return null while redirecting
-  if (!data) {
-    return null;
-  }
 
-  return (
-    <div className="bg-white w-full font-body">
-      {/* NavBar */}
-      <NavBar 
-        activeSection={activeSection}
-        onNavClick={handleNavClick}
-        onGetStartedClick={handleGetStartedClick}
-      />
 
-      {/* Hero Section */}
-      <section className="relative overflow-hidden" style={{ minHeight: '500px' }}>
-        {/* Background Banner Image */}
-        <div className="absolute inset-0 w-full h-full">
-          <img
-            src="/assets/id.png"
-            alt={`${data.name} Banner`}
-            className="w-full h-full object-cover"
-          />
-        </div>
 
-        {/* White Gradient Overlay for Text Area */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white to-transparent" style={{ width: '55%' }}></div>
 
-        <div className="max-w-6xl mx-auto px-8 py-16 flex items-center gap-16 relative">
-          <div className="flex-1 min-w-0 z-10">
-            {/* Breadcrumb */}
-            <div className="text-xs text-muted-foreground mb-4 flex items-center gap-2">
-              <span className="text-foreground opacity-50">Home</span>
-              <span className="text-muted-foreground">›</span>
-              <span className="text-muted-foreground">Industries</span>
-              <span className="text-muted-foreground">›</span>
-              <span className="text-primary">{data.name}</span>
-            </div>
 
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-6 h-0.5 bg-accent-green"></span>
-              <span className="text-xs font-medium text-accent-green uppercase tracking-widest">
-                {data.name.toUpperCase()} SOLUTIONS
-              </span>
-            </div>
-            
-            <h1 className="font-headings font-bold text-5xl text-foreground leading-tight mb-1">
-              {data.name}
-            </h1>
-            <h1 className="font-headings font-bold text-5xl text-primary leading-tight mb-5">
-              {data.tagline}
-            </h1>
-            
-            <p className="text-base text-muted-foreground leading-relaxed mb-8 max-w-md">
-              {data.description}
-            </p>
-            
-            <div className="flex items-center gap-4">
-              <button className="bg-primary text-white px-6 py-3 rounded-md text-sm font-medium flex items-center gap-2 hover:bg-opacity-90 transition-colors">
-                <span>Get a Free Consultation</span>
-                <span>→</span>
-              </button>
-              <button className="border border-primary text-primary px-6 py-3 rounded-md text-sm font-medium flex items-center gap-2 bg-white hover:bg-gray-50 transition-colors">
-                <span>View Case Studies</span>
-                <span>→</span>
-              </button>
-            </div>
-          </div>
 
-          {/* Right side - Banner image visible through gradient */}
-          <div className="flex-1 z-10"></div>
-        </div>
-      </section>
+const industryData:any={
 
-      {/* Feature Cards */}
-      <section className="bg-white border-b border-border">
-        <div className="max-w-6xl mx-auto px-8 py-8">
-          <div className="grid grid-cols-4 gap-8">
-            {data.features.map((feature: any, idx: number) => (
-              <FeatureCard key={idx} {...feature} />
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Overview Section */}
-      <section className="bg-white py-16">
-        <div className="max-w-6xl mx-auto px-8 flex gap-16 items-start">
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-6 h-0.5 bg-accent-green"></span>
-              <span className="text-xs font-medium text-accent-green uppercase tracking-widest">
-                OVERVIEW
-              </span>
-            </div>
-            <h2 className="font-headings font-bold text-4xl text-foreground leading-tight mb-4">
-              {data.overviewTitle}<br />
-              Through <span className="text-primary">{data.overviewHighlight}</span>
-            </h2>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
-              {data.overviewText}
-            </p>
-          </div>
-          
-          <div className="flex-1 min-w-0 flex flex-col gap-5 pt-8">
-            {data.checkItems.map((item: any, idx: number) => (
-              <CheckItem key={idx} {...item} />
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Challenges Section */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-6xl mx-auto px-8">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <span className="text-xs font-medium text-accent-green uppercase tracking-widest">
-                CHALLENGES WE SOLVE
-              </span>
-            </div>
-            <h2 className="font-headings font-bold text-3xl text-foreground">
-              Addressing Key {data.name} Challenges
-            </h2>
-          </div>
 
-          <div className="grid grid-cols-4 gap-6">
-            {data.challenges.map((challenge: any, idx: number) => (
-              <ChallengeCard key={idx} {...challenge} />
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Solutions Grid */}
-      <section className="bg-white py-16">
-        <div className="max-w-6xl mx-auto px-8">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <span className="text-xs font-medium text-accent-green uppercase tracking-widest">
-                OUR SOLUTIONS
-              </span>
-            </div>
-            <h2 className="font-headings font-bold text-3xl text-foreground">
-              {data.name} Solutions We Offer
-            </h2>
-          </div>
 
-          <div className="grid grid-cols-4 gap-6">
-            {data.solutions.map((solution: any, idx: number) => (
-              <SolutionCard key={idx} {...solution} />
-            ))}
-          </div>
-        </div>
-      </section>
+healthcare:{
 
-      {/* Case Studies */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-6xl mx-auto px-8">
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <span className="text-xs font-medium text-accent-green uppercase tracking-widest">
-                SUCCESS STORIES
-              </span>
-            </div>
-            <h2 className="font-headings font-bold text-3xl text-foreground">
-              Our Impact in {data.name}
-            </h2>
-          </div>
 
-          <div className="grid grid-cols-3 gap-6">
-            <CaseStudyCard 
-              image="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop"
-              title="Patient Management System"
-              description="We built a comprehensive patient management system that improved patient data accessibility and reduced administrative workload by 40%."
-            />
-            <CaseStudyCard 
-              image="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&auto=format&fit=crop"
-              title="Telemedicine Platform"
-              description="A secure telemedicine platform that enabled healthcare providers to deliver remote care to 10k+ patients seamlessly."
-            />
-            <CaseStudyCard 
-              image="https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?w=600&auto=format&fit=crop"
-              title="Health Analytics Solution"
-              description="Implemented a data analytics solution that improved clinical decision-making and reduced readmission rates by 25%."
-            />
-          </div>
-        </div>
-      </section>
+name:"Healthcare",
 
-      {/* Technologies */}
-      <section className="bg-slate-900 py-12">
-        <div className="max-w-6xl mx-auto px-8">
-          <div className="flex items-center gap-12">
-            {/* Left side - Text */}
-            <div className="flex-shrink-0" style={{ width: '280px' }}>
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xs font-medium text-accent-green uppercase tracking-widest">
-                  TECHNOLOGIES WE USE
-                </span>
-              </div>
-              <h3 className="font-headings font-bold text-3xl text-white leading-snug">
-                Building with the Best Technologies
-              </h3>
-            </div>
-            
-            {/* Right side - Tech badges */}
-            <div className="flex items-center gap-4 flex-1">
-              <div className="bg-white rounded-xl flex flex-col items-center justify-center gap-2 w-[90px] h-[90px]">
-                <div className="text-4xl text-cyan-400">⚛️</div>
-                <span className="text-xs text-slate-700 font-medium">React</span>
-              </div>
-              <div className="bg-white rounded-xl flex flex-col items-center justify-center gap-2 w-[90px] h-[90px]">
-                <div className="text-4xl text-green-600">●</div>
-                <span className="text-xs text-slate-700 font-medium">Node.js</span>
-              </div>
-              <div className="bg-white rounded-xl flex flex-col items-center justify-center gap-2 w-[90px] h-[90px]">
-                <div className="flex gap-0.5">
-                  <div className="w-3 h-3 bg-blue-500 rounded-sm"></div>
-                  <div className="w-3 h-3 bg-yellow-400 rounded-sm"></div>
-                </div>
-                <span className="text-xs text-slate-700 font-medium">Python</span>
-              </div>
-              <div className="bg-white rounded-xl flex flex-col items-center justify-center gap-2 w-[90px] h-[90px]">
-                <div className="text-2xl font-bold text-orange-500">aws</div>
-                <span className="text-xs text-slate-700 font-medium">AWS</span>
-              </div>
-              <div className="bg-white rounded-xl flex flex-col items-center justify-center gap-2 w-[90px] h-[90px]">
-                <div className="text-4xl text-blue-500">🐳</div>
-                <span className="text-xs text-slate-700 font-medium">Docker</span>
-              </div>
-              <div className="bg-white rounded-xl flex flex-col items-center justify-center gap-2 w-[90px] h-[90px]">
-                <div className="text-4xl text-blue-700">🗄️</div>
-                <span className="text-xs text-slate-700 font-medium">PostgreSQL</span>
-              </div>
-              <div className="bg-white rounded-xl flex flex-col items-center justify-center gap-2 w-[90px] h-[90px]">
-                <div className="text-4xl text-orange-500">▲</div>
-                <span className="text-xs text-slate-700 font-medium">TensorFlow</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+tagline:"Solutions",
 
-      {/* Statistics */}
-      <section className="bg-white py-14">
-        <div className="max-w-6xl mx-auto px-8">
-          <div className="grid grid-cols-4 gap-8">
-            <StatCard icon={Briefcase} number="250+" label={`${data.name} Projects`} iconColor="#3b82f6" />
-            <StatCard icon={Users} number="98%" label="Client Satisfaction" iconColor="#3b82f6" />
-            <StatCard icon={Globe} number="25+" label={`${data.name} Experts`} iconColor="#3b82f6" />
-            <StatCard icon={Award} number="12+" label="Years of Experience" iconColor="#3b82f6" />
-          </div>
-        </div>
-      </section>
 
-      {/* CTA Banner */}
-      <section className="px-16 py-16 bg-white">
-        <div className="relative overflow-hidden rounded-2xl">
-          {/* Background Image */}
-          <div className="absolute inset-0 w-full h-full">
-            <img
-              src="/assets/idcta.png"
-              alt="CTA Background"
-              className="w-full h-full object-cover"
-            />
-          </div>
+heroImage:"/assets/id.png",
 
-          <div className="max-w-6xl mx-auto px-12 py-6 relative z-10">
-            <div className="flex items-center justify-between gap-8">
-              {/* Left Content */}
-              <div className="flex-1 max-w-lg">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-xs font-medium text-accent-green uppercase tracking-widest">
-                    LET'S BUILD BETTER {data.name.toUpperCase()} TOGETHER
-                  </span>
-                </div>
-                <h2 className="font-headings font-bold text-3xl text-white leading-tight mb-3">
-                  Ready to Transform<br />
-                  {data.name} with Technology?
-                </h2>
-                <p className="text-sm text-white opacity-95 leading-relaxed max-w-md">
-                  Let's work together to build innovative {data.name.toLowerCase()} solutions that improve outcomes and drive efficiency.
-                </p>
-              </div>
+heroFit:"cover",
 
-              {/* Right Buttons */}
-              <div className="flex items-center gap-4">
-                <button className="bg-white text-primary px-6 py-3 rounded-lg text-sm font-semibold flex items-center gap-2 hover:bg-gray-100 transition-colors whitespace-nowrap">
-                  <span>Get a Free Consultation</span>
-                  <span>→</span>
-                </button>
-                <button className="border-2 border-white text-white px-6 py-3 rounded-lg text-sm font-semibold flex items-center gap-2 bg-transparent hover:bg-white hover:bg-opacity-10 transition-colors whitespace-nowrap">
-                  <span>Talk to an Expert</span>
-                  <span>→</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+heroPosition:"center center",
 
-      {/* Footer */}
-      <Footer />
-    </div>
-  );
+heroScale:1,
+
+
+
+description:
+"We deliver secure, compliant, and scalable healthcare solutions that improve patient outcomes and streamline operations.",
+
+
+
+overviewTitle:[
+
+"Transforming Healthcare",
+
+"Through Technology"
+
+],
+
+
+
+overviewText:
+"From patient management systems to telemedicine platforms, we build digital solutions that empower healthcare providers to deliver better care, ensure compliance, and drive efficiency across the ecosystem.",
+
+
+
+solutionsTitle:
+"Healthcare Solutions We Offer"
+
+
+
+},
+
+
+
+
+
+
+
+
+
+
+fintech:{
+
+
+name:"FinTech",
+
+tagline:"Solutions",
+
+
+
+heroImage:"/assets/industries/fintech.png",
+
+heroFit:"contain",
+
+heroPosition:"right center",
+
+heroScale:1.05,
+
+
+
+description:
+"We create secure financial technology solutions that improve transactions, automate processes, and enhance customer experiences.",
+
+
+
+overviewTitle:[
+
+"Transforming Finance",
+
+"Through Innovation"
+
+],
+
+
+
+overviewText:
+"We help financial organizations build secure platforms, improve operational efficiency, and deliver better digital experiences.",
+
+
+
+solutionsTitle:
+"FinTech Solutions We Offer"
+
+
+
+},
+
+
+
+
+
+
+
+
+
+
+"retail-e-commerce":{
+
+
+name:"Retail & E-commerce",
+
+tagline:"Solutions",
+
+
+
+heroImage:"/assets/industries/retail.png",
+
+heroFit:"contain",
+
+heroPosition:"right center",
+
+heroScale:1.05,
+
+
+
+description:
+"We build digital commerce solutions that improve customer engagement, simplify operations, and increase business growth.",
+
+
+
+overviewTitle:[
+
+"Modern Retail",
+
+"Through Technology"
+
+],
+
+
+
+overviewText:
+"Our solutions help retailers deliver personalized shopping experiences and manage operations efficiently.",
+
+
+
+solutionsTitle:
+"Retail & E-commerce Solutions We Offer"
+
+
+
+},
+
+
+
+
+
+
+
+
+
+
+manufacturing:{
+
+
+name:"Manufacturing",
+
+tagline:"Solutions",
+
+
+
+heroImage:"/assets/industries/manufacturing.png",
+
+heroFit:"contain",
+
+heroPosition:"right center",
+
+heroScale:1.05,
+
+
+
+description:
+"We develop smart manufacturing solutions that improve productivity, automation, and operational efficiency.",
+
+
+
+overviewTitle:[
+
+"Smart Manufacturing",
+
+"Through Digital Solutions"
+
+],
+
+
+
+overviewText:
+"We help manufacturers optimize workflows, connect systems, and improve production performance.",
+
+
+
+solutionsTitle:
+"Manufacturing Solutions We Offer"
+
+
+
+},
+
+
+
+
+
+
+
+
+
+
+education:{
+
+
+name:"Education",
+
+tagline:"Solutions",
+
+
+
+heroImage:"/assets/industries/Education.png",
+
+heroFit:"contain",
+
+heroPosition:"right center",
+
+heroScale:1.05,
+
+
+
+description:
+"We create digital education platforms that improve learning experiences and simplify academic management.",
+
+
+
+overviewTitle:[
+
+"Transforming Education",
+
+"Through Technology"
+
+],
+
+
+
+overviewText:
+"Our education solutions help institutions deliver better learning experiences through modern technology.",
+
+
+
+solutionsTitle:
+"Education Solutions We Offer"
+
+
+
+},
+
+
+
+
+
+
+
+
+
+
+"logistics-supply-chain":{
+
+
+name:"Logistics & Supply Chain",
+
+tagline:"Solutions",
+
+
+
+heroImage:"/assets/industries/Logistics & Supply chain.png",
+
+heroFit:"contain",
+
+heroPosition:"right center",
+
+heroScale:1.05,
+
+
+
+description:
+"We build logistics solutions that improve tracking, automation, and supply chain visibility.",
+
+
+
+overviewTitle:[
+
+"Connected Logistics",
+
+"For Better Operations"
+
+],
+
+
+
+overviewText:
+"We help logistics companies improve efficiency with smart digital platforms and integrated systems.",
+
+
+
+solutionsTitle:
+"Logistics & Supply Chain Solutions We Offer"
+
+
+
+},
+
+
+
+
+
+
+
+
+
+
+"real-estate":{
+
+
+name:"Real Estate",
+
+tagline:"Solutions",
+
+
+
+heroImage:"/assets/industries/Real Estate.png",
+
+heroFit:"contain",
+
+heroPosition:"right center",
+
+heroScale:1.05,
+
+
+
+description:
+"We create real estate technology solutions that simplify property management and improve customer experiences.",
+
+
+
+overviewTitle:[
+
+"Digital Real Estate",
+
+"Solutions"
+
+],
+
+
+
+overviewText:
+"Our solutions help real estate businesses manage properties, customers, and operations more effectively.",
+
+
+
+solutionsTitle:
+"Real Estate Solutions We Offer"
+
+
+
+},
+
+
+
+
+
+
+
+
+
+
+"energy-utilities":{
+
+
+name:"Energy & Utilities",
+
+tagline:"Solutions",
+
+
+
+heroImage:"/assets/industries/Energy & Utilites.png",
+
+heroFit:"contain",
+
+heroPosition:"right center",
+
+heroScale:1.05,
+
+
+
+description:
+"We develop energy technology solutions that improve monitoring, efficiency, and sustainable operations.",
+
+
+
+overviewTitle:[
+
+"Smarter Energy",
+
+"Through Technology"
+
+],
+
+
+
+overviewText:
+"We help energy companies improve performance with modern digital solutions.",
+
+
+
+solutionsTitle:
+"Energy & Utilities Solutions We Offer"
+
+
+
 }
 
-// Components
-function FeatureCard({ icon: Icon, title, description, color }: any) {
-  return (
-    <div className="flex items-start gap-3">
-      <div className="mt-0.5" style={{ color }}>
-        <Icon className="w-7 h-7" strokeWidth={1.7} />
-      </div>
-      <div>
-        <div className="font-semibold text-sm text-foreground mb-1">{title}</div>
-        <div className="text-xs text-muted-foreground leading-relaxed">{description}</div>
-      </div>
-    </div>
-  );
+
+
+};
+
+
+
+
+
+
+const data=industryData[industry || ""];
+
+
+
+
+
+useEffect(()=>{
+
+
+if(!data){
+
+navigate("/industries");
+
 }
 
-function CheckItem({ text, subtext }: any) {
-  return (
-    <div className="flex items-start gap-3">
-      <div className="mt-0.5 text-accent-green flex-shrink-0">
-        <CheckCircle className="w-5 h-5" strokeWidth={2.4} />
-      </div>
-      <div>
-        <div className="font-semibold text-sm text-foreground mb-0.5">{text}</div>
-        <div className="text-xs text-muted-foreground">{subtext}</div>
-      </div>
-    </div>
-  );
+
+},[data,navigate]);
+
+
+
+
+
+if(!data){
+
+return null;
+
 }
 
-// Components
-function ChallengeCard({ icon: Icon, title, description, bgColor, iconColor }: any) {
-  return (
-    <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
-      <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: bgColor }}>
-        <Icon className="w-7 h-7" style={{ color: iconColor }} strokeWidth={1.8} />
-      </div>
-      <div className="font-semibold text-base text-slate-800 mb-2">{title}</div>
-      <div className="text-sm text-slate-600 leading-relaxed">{description}</div>
-    </div>
-  );
+return (
+
+<div className="bg-white w-full font-body">
+
+
+
+<NavBar
+
+activeSection={activeSection}
+
+onNavClick={handleNavClick}
+
+onGetStartedClick={handleGetStartedClick}
+
+/>
+
+
+
+
+
+
+
+{/* HERO SECTION */}
+
+
+<section
+
+className="relative overflow-hidden"
+
+style={{
+minHeight:"520px"
+}}
+
+>
+
+
+
+<div className="absolute inset-0 w-full h-full">
+
+
+
+<img
+
+src={data.heroImage}
+
+alt={`${data.name} Banner`}
+
+className="w-full h-full"
+
+style={{
+
+objectFit:data.heroFit,
+
+objectPosition:data.heroPosition,
+
+transform:`scale(${data.heroScale})`
+
+}}
+
+/>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div
+
+className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent"
+
+style={{
+width:"58%"
+}}
+
+/>
+
+
+
+
+
+
+
+
+<div className="max-w-6xl mx-auto px-10 py-20 relative z-10">
+
+
+
+<div className="max-w-xl">
+
+
+
+
+
+
+<div className="text-primary font-semibold text-sm tracking-wide mb-4">
+
+
+{data.name.toUpperCase()} SOLUTIONS
+
+
+</div>
+
+
+
+
+
+
+
+<h1 className="font-headings font-bold text-5xl text-foreground leading-tight mb-6">
+
+
+{data.name}
+
+
+<br/>
+
+
+<span className="text-primary">
+
+
+{data.tagline}
+
+
+</span>
+
+
+
+</h1>
+
+
+
+
+
+
+
+<p className="text-base text-muted-foreground leading-relaxed max-w-md mb-10">
+
+
+{data.description}
+
+
+</p>
+
+
+
+
+
+
+
+
+<div className="flex gap-8 flex-wrap">
+
+
+
+
+
+<HeroFeature
+
+icon={ShieldCheck}
+
+title="Secure &"
+
+subtitle="Reliable"
+
+/>
+
+
+
+
+
+
+<HeroFeature
+
+icon={Layers}
+
+title="Scalable"
+
+subtitle="Solutions"
+
+/>
+
+
+
+
+
+
+<HeroFeature
+
+icon={Cpu}
+
+title="Modern"
+
+subtitle="Technology"
+
+/>
+
+
+
+
+
+
+<HeroFeature
+
+icon={Users}
+
+title="Better"
+
+subtitle="Experience"
+
+/>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* OVERVIEW SECTION */}
+
+
+
+
+
+<section className="bg-white py-16 px-16">
+
+
+
+
+
+<div className="max-w-6xl mx-auto">
+
+
+
+
+
+<div className="flex gap-14 items-start">
+
+
+
+
+
+
+
+<div className="flex-1">
+
+
+
+
+
+
+<div className="text-primary font-semibold text-sm mb-3 tracking-wide">
+
+
+OVERVIEW
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<h2 className="font-headings font-bold text-3xl text-foreground leading-tight mb-6">
+
+
+
+{
+data.overviewTitle.map((line:string,index:number)=>(
+
+<div key={index}>
+
+{line}
+
+</div>
+
+))
+
 }
 
-function SolutionCard({ icon: Icon, title, description, iconColor = "#3b82f6" }: any) {
-  const { industry } = useParams<{ industry: string }>();
-  const navigate = useNavigate();
-  
-  const handleClick = () => {
-    const slug = title.toLowerCase().replace(/\s+/g, '-').replace(/\//g, '-');
-    navigate(`/industries/${industry}/${slug}`);
-  };
-  
-  return (
-    <div 
-      onClick={handleClick}
-      className="bg-white rounded-lg p-6 flex flex-col gap-3 shadow-sm border border-gray-100 cursor-pointer hover:shadow-md transition-shadow"
-    >
-      <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: iconColor + '15' }}>
-        <Icon className="w-6 h-6" style={{ color: iconColor }} strokeWidth={2} />
-      </div>
-      <div className="font-semibold text-base text-slate-800">{title}</div>
-      <div className="text-sm text-slate-600 leading-relaxed flex-1">{description}</div>
-      <div className="text-blue-600 text-lg flex items-center gap-1 font-medium">
-        <span>→</span>
-      </div>
-    </div>
-  );
+
+
+</h2>
+
+
+
+
+
+
+
+
+
+<p className="text-sm text-muted-foreground leading-relaxed mb-8 max-w-md">
+
+
+{data.overviewText}
+
+
+</p>
+
+
+
+
+
+
+
+
+<div className="flex flex-col gap-4">
+
+
+
+
+
+<CheckItem
+
+text="Industry-focused digital solutions"
+
+/>
+
+
+
+
+
+
+<CheckItem
+
+text="Secure and scalable technology approach"
+
+/>
+
+
+
+
+
+
+<CheckItem
+
+text="Improved operational efficiency"
+
+/>
+
+
+
+
+
+
+<CheckItem
+
+text="Future-ready business systems"
+
+/>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div className="flex-1">
+
+
+
+
+
+<div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-3xl p-10 min-h-[360px] flex items-center justify-center">
+
+
+
+
+
+<div className="grid grid-cols-2 gap-5 w-full">
+
+
+
+
+
+
+<InfoCard
+
+icon={Database}
+
+title="Data"
+
+text="Secure management"
+
+/>
+
+
+
+
+
+
+
+
+<InfoCard
+
+icon={Workflow}
+
+title="Integration"
+
+text="Connected systems"
+
+/>
+
+
+
+
+
+
+
+
+<InfoCard
+
+icon={Lock}
+
+title="Security"
+
+text="Protected data"
+
+/>
+
+
+
+
+
+
+
+
+<InfoCard
+
+icon={BarChart3}
+
+title="Analytics"
+
+text="Better insights"
+
+/>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</section>
+
+{/* CHALLENGES SECTION */}
+
+
+<section className="bg-gray-50 py-16 px-16">
+
+
+<div className="max-w-6xl mx-auto">
+
+
+
+<div className="text-center mb-12">
+
+
+<div className="text-primary font-semibold text-sm tracking-wide mb-3">
+
+CHALLENGES WE SOLVE
+
+</div>
+
+
+
+
+<h2 className="font-headings font-bold text-3xl text-foreground">
+
+Addressing Key {data.name} Challenges
+
+</h2>
+
+
+
+<div className="w-12 h-1 bg-primary rounded-full mx-auto mt-4"></div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div className="grid grid-cols-4 gap-6">
+
+
+
+
+
+<ChallengeCard
+
+title="Data Management"
+
+text="Managing complex information and improving visibility across systems."
+
+icon={Database}
+
+/>
+
+
+
+
+
+
+<ChallengeCard
+
+title="Operational Efficiency"
+
+text="Reducing manual processes and improving business productivity."
+
+icon={Workflow}
+
+/>
+
+
+
+
+
+
+<ChallengeCard
+
+title="Customer Experience"
+
+text="Creating better digital experiences for users and customers."
+
+icon={Users}
+
+/>
+
+
+
+
+
+
+<ChallengeCard
+
+title="Security & Compliance"
+
+text="Protecting sensitive information with modern security solutions."
+
+icon={Lock}
+
+/>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* SOLUTIONS SECTION */}
+
+
+
+<section className="bg-white py-16 px-16">
+
+
+
+<div className="max-w-6xl mx-auto">
+
+
+
+
+
+<div className="text-center mb-12">
+
+
+
+<div className="text-primary font-semibold text-sm tracking-wide mb-3">
+
+OUR SOLUTIONS
+
+</div>
+
+
+
+
+
+
+<h2 className="font-headings font-bold text-3xl text-foreground">
+
+{data.solutionsTitle}
+
+</h2>
+
+
+
+
+
+
+<div className="w-12 h-1 bg-primary rounded-full mx-auto mt-4"></div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div className="grid grid-cols-4 gap-6">
+
+
+
+
+
+<SolutionCard
+
+title={`${data.name} Platforms`}
+
+text="Digital platforms designed to improve business operations and user experiences."
+
+/>
+
+
+
+
+
+
+<SolutionCard
+
+title="Data Management"
+
+text="Secure systems to organize, manage, and analyze important information."
+
+/>
+
+
+
+
+
+
+
+<SolutionCard
+
+title="Mobile Solutions"
+
+text="Modern mobile applications that improve accessibility and engagement."
+
+/>
+
+
+
+
+
+
+
+<SolutionCard
+
+title="AI & Automation"
+
+text="Smart technology solutions that improve efficiency and workflows."
+
+/>
+
+
+
+
+
+
+
+
+<SolutionCard
+
+title="Cloud Infrastructure"
+
+text="Reliable and scalable cloud solutions for modern businesses."
+
+/>
+
+
+
+
+
+
+
+<SolutionCard
+
+title="System Integration"
+
+text="Connected systems that create seamless operations."
+
+/>
+
+
+
+
+
+
+
+<SolutionCard
+
+title="Analytics Solutions"
+
+text="Actionable insights for smarter business decisions."
+
+/>
+
+
+
+
+
+
+
+<SolutionCard
+
+title="Digital Transformation"
+
+text="Technology strategies that support long-term growth."
+
+/>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+{/* SUCCESS STORIES SECTION */}
+
+
+
+<section className="bg-gray-50 py-16 px-16">
+
+
+
+
+
+<div className="max-w-6xl mx-auto">
+
+
+
+
+
+
+<div className="text-center mb-12">
+
+
+
+
+
+<div className="text-primary font-semibold text-sm tracking-wide mb-3">
+
+SUCCESS STORIES
+
+</div>
+
+
+
+
+
+
+<h2 className="font-headings font-bold text-3xl text-foreground">
+
+Our Impact in {data.name}
+
+</h2>
+
+
+
+
+
+
+<div className="w-12 h-1 bg-primary rounded-full mx-auto mt-4"></div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div className="grid grid-cols-3 gap-6">
+
+
+
+
+
+<StoryCard
+
+title={`${data.name} Management Solution`}
+
+text="Built a scalable digital solution that improved operations and delivered better results."
+
+/>
+
+
+
+
+
+
+<StoryCard
+
+title={`${data.name} Digital Platform`}
+
+text="Created a modern platform that improved customer experience and business efficiency."
+
+/>
+
+
+
+
+
+
+
+<StoryCard
+
+title={`${data.name} Analytics System`}
+
+text="Implemented smart analytics tools to support better decisions."
+
+/>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* TECHNOLOGIES SECTION */}
+
+
+
+<section className="bg-white py-16 px-16">
+
+
+
+
+
+<div className="max-w-6xl mx-auto">
+
+
+
+
+
+
+<div className="text-center mb-12">
+
+
+
+
+
+<div className="text-primary font-semibold text-sm tracking-wide mb-3">
+
+TECHNOLOGIES WE USE
+
+</div>
+
+
+
+
+
+
+<h2 className="font-headings font-bold text-3xl text-foreground">
+
+Building With The Best Technologies
+
+</h2>
+
+
+
+
+
+
+<div className="w-12 h-1 bg-primary rounded-full mx-auto mt-4"></div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div className="flex flex-wrap justify-center gap-8">
+
+
+{
+[
+{
+name:"React",
+logo:"/assets/technologies/react.png"
+},
+{
+name:"Node.js",
+logo:"/assets/technologies/nodejs.png"
+},
+{
+name:"Python",
+logo:"/assets/technologies/python.png"
+},
+{
+name:"AWS",
+logo:"/assets/technologies/aws.png"
+},
+{
+name:"Docker",
+logo:"/assets/technologies/docker.png"
+},
+{
+name:"PostgreSQL",
+logo:"/assets/technologies/postgresql.png"
+},
+{
+name:"TensorFlow",
+logo:"/assets/technologies/tensorflow.png"
 }
 
-function CaseStudyCard({ image, title, description }: any) {
-  return (
-    <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
-      <div className="h-48 overflow-hidden">
-        <img src={image} className="w-full h-full object-cover" alt={title} />
-      </div>
-      <div className="p-6">
-        <div className="font-semibold text-base text-slate-800 mb-3">{title}</div>
-        <div className="text-sm text-slate-600 leading-relaxed mb-4">{description}</div>
-        <a className="text-blue-600 text-sm font-medium flex items-center gap-2 cursor-pointer hover:gap-3 transition-all">
-          <span>View Case Study</span>
-          <span>→</span>
-        </a>
-      </div>
-    </div>
-  );
+].map((tech,index)=>(
+
+
+<TechBadge
+
+key={index}
+
+name={tech.name}
+
+logo={tech.logo}
+
+/>
+
+
+))
+
+
 }
 
-function StatCard({ icon: Icon, number, label, iconColor }: any) {
-  return (
-    <div className="flex flex-col items-center text-center gap-3">
-      <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: iconColor + '15' }}>
-        <Icon className="w-8 h-8" style={{ color: iconColor }} strokeWidth={2} />
-      </div>
-      <div>
-        <div className="font-headings font-bold text-3xl" style={{ color: iconColor }}>{number}</div>
-        <div className="text-sm text-slate-600 mt-1">{label}</div>
-      </div>
-    </div>
-  );
+
+</div>
+
+
+
+
+
+
+
+
+
+<div className="grid grid-cols-4 gap-8 mt-16">
+
+
+
+
+
+<StatBox
+
+number="250+"
+
+label={`${data.name} Projects`}
+
+/>
+
+
+
+
+
+
+<StatBox
+
+number="98%"
+
+label="Client Satisfaction"
+
+/>
+
+
+
+
+
+
+<StatBox
+
+number="25+"
+
+label="Industry Experts"
+
+/>
+
+
+
+
+
+
+<StatBox
+
+number="12+"
+
+label="Years Experience"
+
+/>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</section>
+
+{/* CTA SECTION */}
+
+
+<section className="mx-16 my-12 rounded-2xl overflow-hidden relative">
+
+
+
+<div className="absolute inset-0">
+
+
+<img
+
+src="/assets/home/ctabg.png"
+
+alt="CTA Background"
+
+className="w-full h-full object-cover"
+
+/>
+
+
+
+
+<div className="absolute inset-0 bg-slate-900/70"></div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div className="relative z-10 flex items-center justify-between px-16 py-14">
+
+
+
+
+
+<div className="max-w-lg">
+
+
+
+
+
+<div className="text-accent-green text-sm font-semibold tracking-wide mb-3">
+
+LET'S BUILD BETTER {data.name.toUpperCase()} TOGETHER
+
+</div>
+
+
+
+
+
+
+
+
+<h2 className="font-headings font-bold text-3xl text-white leading-tight mb-4">
+
+
+Ready to Transform
+
+<br/>
+
+{data.name} with Technology?
+
+
+</h2>
+
+
+
+
+
+
+
+
+<p className="text-white opacity-90">
+
+
+Let's work together to build innovative solutions that improve outcomes and drive efficiency.
+
+
+</p>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<div className="flex gap-4">
+
+
+
+
+
+<button className="flex items-center gap-2 bg-white text-slate-900 px-6 py-3 rounded-md text-sm font-medium">
+
+
+Get a Free Consultation
+
+
+<ArrowRight className="w-4 h-4"/>
+
+
+</button>
+
+
+
+
+
+
+
+<button className="flex items-center gap-2 border-2 border-white text-white px-6 py-3 rounded-md text-sm font-medium">
+
+
+Talk to an Expert
+
+
+<ArrowRight className="w-4 h-4"/>
+
+
+</button>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+<Footer />
+
+
+
+</div>
+
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function HeroFeature({
+icon:Icon,
+title,
+subtitle
+}:any){
+
+
+return (
+
+<div className="flex flex-col items-center gap-2">
+
+
+<div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center">
+
+
+<Icon
+
+className="w-7 h-7 text-accent"
+
+strokeWidth={1.8}
+
+/>
+
+
+</div>
+
+
+
+
+
+<span className="text-xs font-medium text-foreground text-center">
+
+
+{title}
+
+<br/>
+
+{subtitle}
+
+
+</span>
+
+
+
+</div>
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+function CheckItem({
+text
+}:any){
+
+
+return (
+
+<div className="flex items-center gap-3">
+
+
+<div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+
+
+<Check
+
+className="w-3 h-3 text-white"
+
+strokeWidth={4}
+
+/>
+
+
+</div>
+
+
+
+
+
+
+<span className="text-sm text-foreground">
+
+{text}
+
+</span>
+
+
+
+
+</div>
+
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+function InfoCard({
+icon:Icon,
+title,
+text
+}:any){
+
+
+return (
+
+<div className="bg-white rounded-2xl p-5 shadow-sm border border-blue-100">
+
+
+
+<div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mb-3">
+
+
+<Icon className="w-5 h-5 text-primary"/>
+
+
+</div>
+
+
+
+
+
+
+<div className="font-semibold text-sm text-foreground">
+
+
+{title}
+
+
+</div>
+
+
+
+
+
+
+
+<div className="text-xs text-muted-foreground mt-1">
+
+
+{text}
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+function ChallengeCard({
+title,
+text,
+icon:Icon
+}:any){
+
+
+
+return (
+
+<div className="bg-white rounded-2xl p-6 border border-border">
+
+
+
+<div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
+
+
+<Icon className="w-6 h-6 text-primary"/>
+
+
+</div>
+
+
+
+
+
+
+<h3 className="font-semibold text-base text-foreground mb-2">
+
+
+{title}
+
+
+</h3>
+
+
+
+
+
+
+
+<p className="text-sm text-muted-foreground leading-relaxed">
+
+
+{text}
+
+
+</p>
+
+
+
+
+
+</div>
+
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+function SolutionCard({
+title,
+text
+}:any){
+
+
+
+return (
+
+<div className="bg-white rounded-2xl p-6 border border-border hover:shadow-lg transition">
+
+
+
+<h3 className="font-semibold text-base text-foreground mb-3">
+
+
+{title}
+
+
+</h3>
+
+
+
+
+
+
+<p className="text-sm text-muted-foreground leading-relaxed mb-4">
+
+
+{text}
+
+
+</p>
+
+
+
+
+
+
+
+<ArrowRight className="w-5 h-5 text-primary"/>
+
+
+
+</div>
+
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+function StoryCard({
+title,
+text
+}:any){
+
+
+
+return (
+
+<div className="bg-white rounded-2xl p-6 border border-border">
+
+
+
+<h3 className="font-semibold text-lg text-foreground mb-3">
+
+
+{title}
+
+
+</h3>
+
+
+
+
+
+
+<p className="text-sm text-muted-foreground leading-relaxed mb-5">
+
+
+{text}
+
+
+</p>
+
+
+
+
+
+
+
+<button className="flex items-center gap-2 text-primary text-sm font-medium">
+
+
+View Case Study
+
+
+<ArrowRight className="w-4 h-4"/>
+
+
+</button>
+
+
+
+
+</div>
+
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+function TechBadge({
+name,
+logo
+}:any){
+
+
+
+return (
+
+<div className="flex flex-col items-center gap-3">
+
+
+
+<div className="w-16 h-16 rounded-2xl border border-border flex items-center justify-center bg-white shadow-sm overflow-hidden">
+
+
+<img
+
+src={logo}
+
+alt={name}
+
+className="w-10 h-10 object-contain"
+
+/>
+
+
+</div>
+
+
+
+
+
+
+<span className="text-sm font-medium text-foreground text-center">
+
+
+{name}
+
+
+</span>
+
+
+
+
+</div>
+
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+function StatBox({
+number,
+label
+}:any){
+
+
+
+return (
+
+<div className="text-center">
+
+
+
+<div className="font-headings font-bold text-3xl text-foreground">
+
+
+{number}
+
+
+</div>
+
+
+
+
+
+
+
+<div className="text-sm text-muted-foreground mt-2">
+
+
+{label}
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+);
+
+
 }
