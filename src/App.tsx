@@ -16,6 +16,7 @@ import ServicesPage from "./pages/ServicesPage";
 import ServiceDetailPage from "./pages/ServiceDetailPage";
 
 import PortfolioPage from "./pages/PortfolioPage";
+import PortfolioDetailPage from "./pages/PortfolioDetailPage";
 import ContactPage from "./pages/ContactPage";
 
 
@@ -28,62 +29,16 @@ export default function App() {
       <div className="w-full min-h-screen bg-white">
 
         <Routes>
-
-          <Route 
-            path="/" 
-            element={<HomePage />} 
-          />
-
-
-          <Route 
-            path="/about" 
-            element={<AboutPage />} 
-          />
-
-
-          <Route 
-            path="/industries" 
-            element={<IndustriesPage />} 
-          />
-
-
-          <Route 
-            path="/industries/:industry" 
-            element={<IndustryDetailPage />} 
-          />
-
-
-          <Route 
-            path="/industries/:industry/:solution" 
-            element={<SolutionDetailPage />} 
-          />
-
-
-
-          <Route 
-            path="/services" 
-            element={<ServicesPage />} 
-          />
-
-
-          <Route 
-            path="/services/:service" 
-            element={<ServiceDetailPage />} 
-          />
-
-
-
-          <Route 
-            path="/portfolio" 
-            element={<PortfolioPage />} 
-          />
-
-
-          <Route 
-            path="/contact" 
-            element={<ContactPage />} 
-          />
-
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/industries" element={<IndustriesPage />} />
+          <Route path="/industries/:industry" element={<IndustryDetailPage />} />
+          <Route path="/industries/:industry/:solution" element={<SolutionDetailPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/services/:service" element={<ServiceDetailPage />} />
+          <Route path="/portfolio" element={<PortfolioPage />} />
+          <Route path="/portfolio/:projectId" element={<PortfolioDetailPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
 
       </div>
