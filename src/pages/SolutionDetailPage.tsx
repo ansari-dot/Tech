@@ -3,6 +3,7 @@ import { Database, Zap, Target, Lightbulb, Heart, Settings, Gauge, Shield, Alert
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { useState, useEffect } from "react";
+import { getStartedWithWhatsApp } from "../utils/whatsapp";
 
 export default function SolutionDetailPage() {
   const { industry, solution } = useParams<{ industry: string; solution: string }>();
@@ -14,7 +15,7 @@ export default function SolutionDetailPage() {
   };
 
   const handleGetStartedClick = () => {
-    // Handle get started
+    getStartedWithWhatsApp();
   };
 
   // Solution data

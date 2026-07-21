@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { getStartedWithWhatsApp } from "../utils/whatsapp";
 import { motion, AnimatePresence } from "motion/react";
 import { useNavigate } from "react-router-dom";
 import { 
-  ArrowRight, X, Send, CheckCircle, Mail, MapPin, 
+  ArrowRight, X, Send, CheckCircle, Mail, 
   Briefcase, BarChart2, Users, Globe, Award, Check,
   Landmark, HeartPulse, Truck, ShoppingCart, Cloud, Zap,
   TrendingUp, Terminal
@@ -59,7 +60,7 @@ export default function PortfolioPage() {
       <NavBar 
         activeSection={activeSection}
         onNavClick={handleNavClick}
-        onGetStartedClick={() => triggerLeadModal("get-started")}
+        onGetStartedClick={getStartedWithWhatsApp}
       />
 
       <main className="flex-grow">
@@ -297,7 +298,7 @@ export default function PortfolioPage() {
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button 
-                onClick={() => triggerLeadModal("get-started")}
+                onClick={getStartedWithWhatsApp}
                 className="bg-white text-foreground border border-border font-semibold text-sm px-8 py-3 rounded-md flex items-center gap-2 hover:bg-gray-50 active:scale-95 transition-all cursor-pointer"
               >
                 <span>Get Started</span>
@@ -412,10 +413,10 @@ export default function PortfolioPage() {
                       {/* Immediate Contact Information */}
                       <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-muted-foreground">
                         <span className="flex items-center gap-1">
-                          <Mail className="w-3 h-3 text-primary" /> hello@3novator.tech
+                          <Mail className="w-3 h-3 text-primary" /> threenovator@gmail.com
                         </span>
                         <span className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-accent-green" /> SF, California
+                          <Globe className="w-3 h-3 text-accent-green" /> Remote-first
                         </span>
                       </div>
                     </motion.form>

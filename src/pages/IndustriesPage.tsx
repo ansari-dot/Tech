@@ -18,6 +18,7 @@ import Footer from "../components/Footer";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getStartedWithWhatsApp } from "../utils/whatsapp";
 
 
 
@@ -37,7 +38,7 @@ setActiveSection(section);
 
 
 const handleGetStartedClick=()=>{
-
+  getStartedWithWhatsApp();
 };
 
 

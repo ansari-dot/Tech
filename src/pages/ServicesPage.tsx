@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import CTASection from "../components/CTASection";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getStartedWithWhatsApp } from "../utils/whatsapp";
 
 export default function ServicesPage() {
   const [activeSection, setActiveSection] = useState("services");
@@ -14,7 +15,7 @@ export default function ServicesPage() {
   };
 
   const handleGetStartedClick = () => {
-    // Handle get started click
+    getStartedWithWhatsApp();
   };
 
   return (
@@ -66,8 +67,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Trusted By Bar */}
-      <section className="w-full bg-white py-10 border-b border-border">
+      {/* Trusted By Bar (Temporarily Hidden) */}
+      {/* <section className="w-full bg-white py-10 border-b border-border">
         <div className="text-center mb-6">
           <span className="text-xs font-semibold text-primary tracking-widest">
             TRUSTED BY BUSINESSES WORLDWIDE —
@@ -81,7 +82,7 @@ export default function ServicesPage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* Approach Section */}
       <section className="w-full bg-white py-16 px-20">

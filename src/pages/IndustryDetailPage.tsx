@@ -2,6 +2,7 @@ import {
   useParams,
   useNavigate
 } from "react-router-dom";
+import { getStartedWithWhatsApp } from "../utils/whatsapp";
 
 import {
   ShieldCheck,
@@ -48,7 +49,9 @@ setActiveSection(section);
 
 
 
-const handleGetStartedClick=()=>{};
+const handleGetStartedClick=()=>{
+  getStartedWithWhatsApp();
+};
 
 
 

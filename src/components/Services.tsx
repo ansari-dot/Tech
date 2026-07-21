@@ -1,26 +1,33 @@
 import { Code2, Cloud, Smartphone, Shield, BarChart3, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function AboutSection() {
+  const navigate = useNavigate();
+
   const services = [
     {
       icon: Code2,
       title: "Custom Software Development",
       description: "Scalable, secure, and tailor-made software built to solve real business problems.",
+      slug: "custom-software-development",
     },
     {
       icon: Cloud,
-      title: "Cloud & DevOps Engineering",
+      title: "Cloud Solutions",
       description: "Robust cloud solutions and DevOps practices to accelerate delivery and performance.",
+      slug: "cloud-solutions",
     },
     {
       icon: Smartphone,
       title: "Mobile App Development",
       description: "High-performance mobile apps that deliver seamless user experiences.",
+      slug: "mobile-app-development",
     },
     {
       icon: Shield,
-      title: "QA & Software Testing",
+      title: "Cybersecurity",
       description: "Ensure reliability and quality through automated and manual testing excellence.",
+      slug: "cybersecurity",
     },
   ];
 
@@ -61,7 +68,8 @@ export default function AboutSection() {
               return (
                 <div
                   key={index}
-                  className="bg-white/90 backdrop-blur-sm rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-gray-100 group cursor-pointer"
+                  onClick={() => navigate(`/services/${service.slug}`)}
+                  className="bg-white/90 backdrop-blur-sm rounded-xl p-5 shadow-md hover:shadow-lg transition-all border border-gray-100 group cursor-pointer hover:-translate-y-1"
                 >
                   {/* Icon */}
                   <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
@@ -69,7 +77,7 @@ export default function AboutSection() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-sans font-bold text-sm text-gray-900 mb-2 leading-tight">
+                  <h3 className="font-sans font-bold text-sm text-gray-900 mb-2 leading-tight group-hover:text-primary transition-colors">
                     {service.title}
                   </h3>
 
@@ -92,3 +100,4 @@ export default function AboutSection() {
     </section>
   );
 }
+

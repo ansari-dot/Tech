@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getStartedWithWhatsApp } from "../utils/whatsapp";
 import { motion, AnimatePresence } from "motion/react";
-import { X, Send, CheckCircle, Mail, Phone, MapPin } from "lucide-react";
+import { X, Send, CheckCircle, Mail, Phone, Globe } from "lucide-react";
 import NavBar from "../components/NavBar";
 import HeroSection from "../components/HeroSection";
 import TrustedBar from "../components/TrustedBar";
@@ -14,6 +16,7 @@ import Footer from "../components/Footer";
 import Services from "../components/Services";
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("home");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalType, setModalType] = useState<"quote" | "get-started">("get-started");
@@ -58,7 +61,7 @@ export default function HomePage() {
       <NavBar 
         activeSection={activeSection}
         onNavClick={handleNavClick}
-        onGetStartedClick={() => triggerModal("get-started")}
+        onGetStartedClick={getStartedWithWhatsApp}
       />
 
       {/* 2. CORE VIEWPORT CONTAINER */}
@@ -67,13 +70,13 @@ export default function HomePage() {
         {/* HERO SECTION */}
         <div id="home" className="w-full">
           <HeroSection 
-            onQuoteClick={() => triggerModal("quote")}
-            onWorkClick={() => triggerModal("get-started")}
+            onQuoteClick={() => navigate("/contact")}
+            onWorkClick={() => navigate("/portfolio")}
           />
         </div>
 
-        {/* TRUSTED BY COMPANIES BAR */}
-        <TrustedBar />
+        {/* TRUSTED BY COMPANIES BAR (Temporarily Hidden) */}
+        {/* <TrustedBar /> */}
  {/* Services SECTION */}
         <Services />
         {/* ABOUT US SECTION */}
@@ -200,10 +203,10 @@ export default function HomePage() {
                       {/* Immediate Contact Information */}
                       <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-muted-foreground">
                         <span className="flex items-center gap-1">
-                          <Mail className="w-3 h-3 text-primary" /> hello@3novator.tech
+                          <Mail className="w-3 h-3 text-primary" /> threenovator@gmail.com
                         </span>
                         <span className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-accent-green" /> SF, California
+                          <Globe className="w-3 h-3 text-accent-green" /> Remote-first
                         </span>
                       </div>
                     </motion.form>

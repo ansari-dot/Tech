@@ -8,9 +8,11 @@ import {
 } from "lucide-react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { getStartedWithWhatsApp } from "../utils/whatsapp";
 import { projects } from "../data/projectsData";
 import { motion, AnimatePresence } from "motion/react";
+import { generateCaseStudyPdf } from "../utils/generateCaseStudyPdf";
 
 export default function PortfolioDetailPage() {
   const { projectId } = useParams<{ projectId: string }>();
@@ -103,7 +105,7 @@ export default function PortfolioDetailPage() {
       <NavBar
         activeSection={activeSection}
         onNavClick={handleNavClick}
-        onGetStartedClick={() => triggerLeadModal("get-started")}
+        onGetStartedClick={getStartedWithWhatsApp}
       />
 
       <main className="flex-grow">
@@ -157,6 +159,16 @@ export default function PortfolioDetailPage() {
 
               {/* Technical specs icons row */}
               <div className="flex flex-wrap gap-x-8 gap-y-4 py-6 border-t border-slate-200/80">
+                {project.clientName && (
+                  <div className="flex items-center gap-3">
+                    <Briefcase className="w-5 h-5 text-slate-400" strokeWidth={2} />
+                    <div>
+                      <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Client</div>
+                      <div className="text-xs font-bold text-slate-700">{project.clientName}</div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-slate-400" strokeWidth={2} />
                   <div>
@@ -174,14 +186,6 @@ export default function PortfolioDetailPage() {
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <Users className="w-5 h-5 text-slate-400" strokeWidth={2} />
-                  <div>
-                    <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Role</div>
-                    <div className="text-xs font-bold text-slate-700">Full Stack Development</div>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-slate-400" strokeWidth={2} />
                   <div>
                     <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Live</div>
@@ -192,21 +196,43 @@ export default function PortfolioDetailPage() {
 
               {/* Dynamic Actions */}
               <div className="flex flex-wrap gap-4 pt-2">
-                <button 
-                  onClick={() => triggerLeadModal("get-started")}
-                  className="flex items-center gap-2 bg-primary hover:bg-opacity-95 text-white font-sans font-bold text-[10px] sm:text-xs tracking-widest uppercase px-6 py-3 rounded-md shadow-md shadow-primary/10 transition-all cursor-pointer"
-                >
-                  <span>Live Preview</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                {project.liveUrl ? (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-primary hover:bg-opacity-95 text-white font-sans font-bold text-[10px] sm:text-xs tracking-widest uppercase px-6 py-3 rounded-md shadow-md shadow-primary/10 transition-all cursor-pointer"
+                  >
+                    <span>Live Preview</span>
+                    <Globe className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <button
+                    onClick={getStartedWithWhatsApp}
+                    className="flex items-center gap-2 bg-primary hover:bg-opacity-95 text-white font-sans font-bold text-[10px] sm:text-xs tracking-widest uppercase px-6 py-3 rounded-md shadow-md shadow-primary/10 transition-all cursor-pointer"
+                  >
+                    <span>Live Preview</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
 
-                <button 
-                  onClick={() => triggerLeadModal("quote")}
-                  className="flex items-center gap-2 border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 font-sans font-bold text-[10px] sm:text-xs tracking-widest uppercase px-6 py-3 rounded-md transition-all cursor-pointer bg-white"
-                >
-                  <span>Case Study</span>
-                  <Download className="w-4 h-4" />
-                </button>
+                {project.caseStudyPdf || true ? (
+                  <button
+                    onClick={() => generateCaseStudyPdf(project)}
+                    className="flex items-center gap-2 border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 font-sans font-bold text-[10px] sm:text-xs tracking-widest uppercase px-6 py-3 rounded-md transition-all cursor-pointer bg-white"
+                  >
+                    <span>Case Study</span>
+                    <Download className="w-4 h-4" />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => triggerLeadModal("quote")}
+                    className="flex items-center gap-2 border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 font-sans font-bold text-[10px] sm:text-xs tracking-widest uppercase px-6 py-3 rounded-md transition-all cursor-pointer bg-white"
+                  >
+                    <span>Case Study</span>
+                    <Download className="w-4 h-4" />
+                  </button>
+                )}
               </div>
 
             </div>
@@ -411,7 +437,7 @@ export default function PortfolioDetailPage() {
               {/* Right Button */}
               <div className="flex-shrink-0">
                 <button 
-                  onClick={() => triggerLeadModal("get-started")} 
+                  onClick={getStartedWithWhatsApp} 
                   className="flex items-center gap-2 bg-primary hover:bg-[#0047df] text-white font-sans font-bold text-xs tracking-wider uppercase px-6 py-3 rounded-lg shadow-md shadow-primary/10 transition-all cursor-pointer whitespace-nowrap"
                 >
                   <span>Start Your Project</span>
@@ -528,10 +554,10 @@ export default function PortfolioDetailPage() {
                       {/* Contact details footer */}
                       <div className="pt-4 border-t border-slate-100 flex items-center justify-between text-[11px] text-muted-foreground">
                         <span className="flex items-center gap-1">
-                          <Mail className="w-3 h-3 text-primary" /> hello@3novator.tech
+                          <Mail className="w-3 h-3 text-primary" /> threenovator@gmail.com
                         </span>
                         <span className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-accent-green" /> SF, California
+                          <Globe className="w-3 h-3 text-accent-green" /> Remote-first
                         </span>
                       </div>
                     </motion.form>

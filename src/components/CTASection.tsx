@@ -1,6 +1,10 @@
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { getStartedWithWhatsApp } from "../utils/whatsapp";
 
 export default function CTASection() {
+  const navigate = useNavigate();
+
   return (
     <section className="w-full px-4 sm:px-6 md:px-10 lg:px-20 py-14">
       <div className="max-w-7xl mx-auto">
@@ -40,12 +44,18 @@ export default function CTASection() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-              <button className="bg-white text-primary hover:bg-gray-100 font-semibold text-sm px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-all">
+              <button 
+                onClick={getStartedWithWhatsApp}
+                className="bg-white text-primary hover:bg-gray-100 font-semibold text-sm px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer"
+              >
                 <span>Get Started</span>
                 <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
               </button>
               
-              <button className="border-2 border-accent-green text-accent-green hover:bg-accent-green/10 font-semibold text-sm px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-all">
+              <button
+                onClick={() => navigate("/contact")}
+                className="border-2 border-accent-green text-accent-green hover:bg-accent-green/10 font-semibold text-sm px-6 py-3 rounded-lg flex items-center justify-center gap-2 transition-all cursor-pointer"
+              >
                 <span>Schedule a Call</span>
                 <ArrowRight className="w-4 h-4" strokeWidth={2.5} />
               </button>
@@ -58,3 +68,4 @@ export default function CTASection() {
     </section>
   );
 }
+

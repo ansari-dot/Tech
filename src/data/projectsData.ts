@@ -3,6 +3,7 @@ export interface Project {
   title: string;
   category: string;
   filterCategory: string;
+  clientName?: string;
   image: string;
   cardImage?: string;
   shortDesc: string;
@@ -13,6 +14,8 @@ export interface Project {
   deliverables: string[];
   technologies: string[];
   timeline: string;
+  liveUrl?: string;
+  caseStudyPdf?: string;
 }
 
 export const projects: Project[] = [
@@ -21,6 +24,7 @@ export const projects: Project[] = [
     title: "T-Mobile Tec Store",
     category: "Headless E-commerce",
     filterCategory: "Retail",
+    clientName: "Gary Connell",
     image: "/assets/tmobile.png",
     cardImage: "/assets/tmobilecard.png",
     shortDesc: "A headless MERN stack electronics e-commerce store integrating dynamic inventories and secure checkout pipelines.",
@@ -39,7 +43,9 @@ export const projects: Project[] = [
       "Hostinger Deployment Config"
     ],
     technologies: ["React", "Node.js", "Express.js", "MongoDB", "Hostinger Deploy", "Tailwind CSS"],
-    timeline: "3 Months"
+    timeline: "3 Months",
+    liveUrl: "https://tmobiletecstore.com",
+    caseStudyPdf: "/assets/case-studies/tmobile-case-study.pdf"
   },
   {
     id: "edpreps-exam-portal",
@@ -64,7 +70,9 @@ export const projects: Project[] = [
       "AWS Cloud Infrastructure Deployment"
     ],
     technologies: ["React", "Node.js", "Express.js", "MongoDB", "AWS Cloud Deploy", "Tailwind CSS", "Redis"],
-    timeline: "4 Months"
+    timeline: "4 Months",
+    liveUrl: "https://edpreps.com",
+    caseStudyPdf: "/assets/case-studies/edpreps-case-study.pdf"
   },
   {
     id: "north-paradise-treks",
@@ -89,6 +97,8 @@ export const projects: Project[] = [
       "Hostinger Server Deployment Pipeline"
     ],
     technologies: ["React", "Node.js", "Express.js", "MongoDB", "Hostinger Deploy", "Tailwind CSS"],
-    timeline: "3 Months"
+    timeline: "3 Months",
+    liveUrl: "https://northparadisetreksandtours.com/",
+    caseStudyPdf: "/assets/case-studies/northparadise-case-study.pdf"
   }
 ];

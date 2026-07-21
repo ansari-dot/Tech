@@ -323,7 +323,9 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="text-[11px] text-muted-foreground font-bold tracking-wider uppercase">Call Direct</div>
-                  <div className="font-headings font-bold text-foreground text-sm mt-0.5">+1 (800) 123-4567</div>
+                  <div className="font-headings font-bold text-foreground text-sm mt-0.5">
+                    0349-8880182 <br /> 0348-9164985
+                  </div>
                 </div>
               </div>
 
@@ -334,18 +336,18 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <div className="text-[11px] text-muted-foreground font-bold tracking-wider uppercase">Email Tech Leads</div>
-                  <div className="font-headings font-bold text-foreground text-sm mt-0.5">hello@3novator.tech</div>
+                  <div className="font-headings font-bold text-foreground text-sm mt-0.5">threenovator@gmail.com</div>
                 </div>
               </div>
 
               {/* Office Location */}
               <div className="flex items-center gap-4 bg-slate-50 border border-border p-5 rounded-xl hover:shadow-md transition-shadow">
                 <div className="w-12 h-12 rounded-lg bg-blue-50 flex items-center justify-center text-primary">
-                  <MapPin className="w-5.5 h-5.5" strokeWidth={2.2} />
+                  <Globe className="w-5.5 h-5.5" strokeWidth={2.2} />
                 </div>
                 <div>
-                  <div className="text-[11px] text-muted-foreground font-bold tracking-wider uppercase">Headquarters</div>
-                  <div className="font-headings font-bold text-foreground text-sm mt-0.5">San Francisco, California, USA</div>
+                  <div className="text-[11px] text-muted-foreground font-bold tracking-wider uppercase">Location</div>
+                  <div className="font-headings font-bold text-foreground text-sm mt-0.5">Remote / Distributed</div>
                 </div>
               </div>
             </div>

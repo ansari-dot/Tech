@@ -1,29 +1,28 @@
+import { User } from "lucide-react";
+
 export default function Testimonials() {
   const testimonials = [
     {
-      quote: "3Novator Tech delivered a solution that exceeded our expectations. Their team was professional, responsive, and truly invested in our success.",
-      name: "James Carter",
-      position: "CTO, FinEdge Solutions",
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+      quote: "With 3Novator's engineering excellence, we successfully scaled our exam portal to support over 30,000 active pre-medical students. The AI score predictor and automated Mistake Notebook are absolute game-changers, delivering outstanding performance under high concurrent loads.",
+      name: "Fahad Shah",
+      position: "Founder, EdPreps MDCAT",
     },
     {
-      quote: "Their expertise in cloud and DevOps helped us scale faster and operate more efficiently. Highly recommended!",
-      name: "Priya Sharma",
-      position: "Head of Engineering, HealthPlus",
-      avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+      quote: "The headless MERN stack e-commerce store built by 3Novator has completely transformed our retail operations. Catalog search is lightning fast, inventory mutations are synchronized in real-time, and the admin panel gives us full control over stock variants and sales metrics.",
+      name: "Gary Connell",
+      position: "Client & Founder, T-Mobile Tec Store",
     },
     {
-      quote: "A reliable technology partner who understands business needs and delivers real impact. Great experience working with them!",
-      name: "Michael Thompson",
-      position: "CEO, LogiStream",
-      avatar: "https://randomuser.me/api/portraits/men/22.jpg",
+      quote: "Our adventure tour reservations increased by 45% within months of launching the new platform. 3Novator designed an intuitive itinerary builder and a seamless WhatsApp booking engine that works flawlessly even under low-bandwidth connections in Northern Pakistan.",
+      name: "Aqeel Ahmed",
+      position: "Owner, North Paradise Treks",
     },
   ];
 
   return (
     <section className="bg-gray-50 w-full px-4 sm:px-6 md:px-10 lg:px-20 py-14">
       <div className="max-w-7xl mx-auto">
-        
+
         {/* Header - Centered */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -33,7 +32,7 @@ export default function Testimonials() {
             </span>
             <span className="inline-block w-7 h-[2px] bg-accent-green"></span>
           </div>
-          
+
           <h2 className="font-headings text-foreground font-bold text-[32px] leading-[1.2]">
             Trusted by Clients. Proven by <span className="text-primary">Results.</span>
           </h2>
@@ -58,11 +57,9 @@ export default function Testimonials() {
 
               {/* Author Info */}
               <div className="flex items-center gap-3">
-                <img
-                  src={testimonial.avatar}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
+                <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center text-primary flex-shrink-0">
+                  <User className="w-6 h-6" />
+                </div>
                 <div>
                   <h4 className="font-body text-foreground font-semibold text-sm">
                     {testimonial.name}

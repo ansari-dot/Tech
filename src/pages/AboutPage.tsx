@@ -2,6 +2,7 @@ import { Users, Lightbulb, ShieldCheck, Target, UsersRound, FlaskConical, BarCha
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import { useState } from "react";
+import { getStartedWithWhatsApp } from "../utils/whatsapp";
 
 export default function AboutPage() {
   const [activeSection, setActiveSection] = useState("about");
@@ -11,7 +12,7 @@ export default function AboutPage() {
   };
 
   const handleGetStartedClick = () => {
-    // Handle get started click
+    getStartedWithWhatsApp();
   };
 
   return (
@@ -166,8 +167,8 @@ export default function AboutPage() {
 
       <div className="w-full border-t border-border"></div>
 
-      {/* Team Section - continuing below */}
-      <TeamSection />
+      {/* Team Section - temporarily hidden */}
+      {/* <TeamSection /> */}
 
       {/* Stats Section */}
       <StatsSection />
