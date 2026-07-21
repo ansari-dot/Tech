@@ -106,62 +106,47 @@ export default function ContactPage() {
       <main className="flex-grow">
 
         {/* 2. HERO BANNER */}
-        <section className="relative overflow-hidden" style={{ minHeight: '550px' }}>
+        <section className="relative overflow-hidden bg-slate-50 min-h-[360px] sm:min-h-[440px] flex items-center">
           {/* Background Banner Image */}
           <div className="absolute inset-0 w-full h-full">
             <img
               src="/assets/home/contact.png"
               alt="Contact Banner"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-right opacity-90 sm:opacity-100"
             />
           </div>
 
-          {/* White Gradient Overlay for Text Area */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white to-transparent" style={{ width: '55%' }}></div>
+          {/* White Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/30 sm:to-transparent w-full sm:w-[70%] lg:w-[55%]"></div>
 
-          {/* Dot Grid Top Left */}
-          <div className="absolute left-8 top-16 grid gap-2 z-10" style={{ gridTemplateColumns: 'repeat(6, 8px)', gridTemplateRows: 'repeat(6, 8px)' }}>
-            {Array.from({ length: 36 }).map((_, i) => (
-              <div key={i} className="w-1 h-1 rounded-full bg-border"></div>
-            ))}
-          </div>
-
-          {/* Dot Grid Bottom Left */}
-          <div className="absolute left-8 bottom-12 grid gap-2 z-10" style={{ gridTemplateColumns: 'repeat(6, 8px)', gridTemplateRows: 'repeat(4, 8px)' }}>
-            {Array.from({ length: 24 }).map((_, i) => (
-              <div key={i} className="w-1 h-1 rounded-full bg-border"></div>
-            ))}
-          </div>
-
-          <div className="flex items-center justify-between pl-8 sm:pl-16 md:pl-24 pr-8 py-16 max-w-7xl w-full relative">
+          <div className="flex items-center justify-between px-5 sm:px-10 lg:px-20 py-10 sm:py-16 max-w-7xl w-full relative">
             {/* Left Content */}
-            <div className="flex-1 max-w-lg z-10">
+            <div className="flex-1 max-w-lg z-10 w-full">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-6 h-0.5 bg-accent-green"></div>
-                <span className="text-primary font-semibold text-sm tracking-widest uppercase">
+                <span className="text-primary font-semibold text-xs sm:text-sm tracking-widest uppercase">
                   CONTACT US
                 </span>
               </div>
               
-              <h1 className="font-headings font-bold text-4xl text-foreground leading-tight mb-2">
+              <h1 className="font-headings font-bold text-3xl sm:text-4xl lg:text-5xl text-foreground leading-tight mb-2">
                 Get in Touch.
               </h1>
-              <h1 className="font-headings font-bold text-4xl text-primary leading-tight mb-6">
+              <h1 className="font-headings font-bold text-3xl sm:text-4xl lg:text-5xl text-primary leading-tight mb-6">
                 Start Your Project.
               </h1>
               
-              <p className="text-muted-foreground text-sm leading-relaxed max-w-sm">
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed max-w-sm">
                 Connect with our technical architects and product consultants to discuss your custom software requirements and project roadmap.
               </p>
             </div>
 
-            {/* Right side spacer */}
-            <div className="flex-1 z-10"></div>
+            <div className="hidden lg:block flex-1 z-10"></div>
           </div>
         </section>
 
         {/* 3. CONTACT FORM & FAQ GRID */}
-        <section ref={formRef} className="px-20 py-20 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <section ref={formRef} className="px-4 sm:px-10 lg:px-20 py-12 sm:py-20 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           
           {/* Left Side: Contact Form Card */}
           <div className="lg:col-span-7 bg-white border border-border rounded-2xl shadow-sm p-8 md:p-10 relative overflow-hidden">

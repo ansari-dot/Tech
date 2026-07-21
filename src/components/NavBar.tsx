@@ -120,11 +120,15 @@ export default function NavBar({ onNavClick, activeSection, onGetStartedClick }:
         <div className="flex flex-col h-[calc(100vh-80px)] p-6 bg-white overflow-y-auto">
           <div className="flex flex-col gap-4 py-4">
             {navItems.map((item) => {
-              const isActive = activeSection === item.value;
+              const isActive = location.pathname === item.path;
               return (
-                <button
+                <Link
                   key={item.value}
-                  onClick={() => handleItemClick(item.value)}
+                  to={item.path}
+                  onClick={() => {
+                    onNavClick(item.value);
+                    setIsOpen(false);
+                  }}
                   className={`flex items-center justify-between py-3 px-4 rounded-lg font-sans text-sm font-semibold text-left transition-all ${isActive
                       ? "text-primary bg-primary/5 border-l-4 border-accent-green"
                       : "text-foreground hover:text-primary hover:bg-slate-50 border-l-4 border-transparent"
@@ -134,7 +138,7 @@ export default function NavBar({ onNavClick, activeSection, onGetStartedClick }:
                   {isActive && (
                     <span className="w-2 h-2 rounded-full bg-accent-green" />
                   )}
-                </button>
+                </Link>
               );
             })}
           </div>

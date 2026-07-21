@@ -532,696 +532,264 @@ onGetStartedClick={handleGetStartedClick}
 
 
 
-<section 
-className="relative overflow-hidden"
-style={{
-minHeight:"450px"
-}}
->
-
-
-<div className="absolute inset-0 w-full h-full">
-
-
-<img
-
-src={serviceData.heroImage}
-
-alt={serviceData.name}
-
-className="w-full h-full"
-
-style={{
-objectFit:serviceData.heroFit,
-objectPosition:serviceData.heroPosition,
-transform:`scale(${serviceData.heroScale})`
-}}
-
-/>
-
-
-</div>
-
-
-
-
-
-<div 
-className="absolute inset-0 bg-gradient-to-r from-white via-white to-transparent"
-style={{
-width:"55%"
-}}
-></div>
-
-
-
-
-
-
-<div className="max-w-6xl mx-auto px-16 py-16 relative z-10">
-
-
-<div className="max-w-md">
-
-
-
-<div className="text-primary font-semibold text-sm mb-3 tracking-wide">
-
-OUR SERVICES
-
-</div>
-
-
-
-
-
-<h1 className="font-headings font-bold text-5xl text-foreground leading-tight mb-6">
-
-
-{
-serviceData.titleLines.map((line:string,index:number)=>(
-
-<div key={index}>
-
-{line}
-
-</div>
-
-))
-}
-
-
-</h1>
-
-
-
-
-
-<p className="text-base text-muted-foreground leading-relaxed mb-10 max-w-md">
-
-{serviceData.description}
-
-</p>
-
-
-
-
-
-<div className="flex gap-10">
-
-
-<IconFeature icon={Layers} title="Scalable" subtitle="Solutions"/>
-
-<IconFeature icon={ShieldCheck} title="Secure &" subtitle="Reliable"/>
-
-<IconFeature icon={Cpu} title="Modern" subtitle="Technologies"/>
-
-<IconFeature icon={Clock} title="On-time" subtitle="Delivery"/>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
+<section className="relative overflow-hidden bg-slate-50 min-h-[380px] sm:min-h-[460px] flex items-center">
+  {/* Background Banner Image */}
+  <div className="absolute inset-0 w-full h-full">
+    <img
+      src={serviceData.heroImage}
+      alt={serviceData.name}
+      className="w-full h-full object-cover object-right opacity-90 sm:opacity-100"
+      style={{
+        objectPosition: serviceData.heroPosition || "right center",
+        transform: `scale(${serviceData.heroScale || 1})`
+      }}
+    />
+  </div>
+
+  {/* Soft White Gradient Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/30 sm:to-transparent w-full sm:w-[70%] lg:w-[55%]"></div>
+
+  <div className="max-w-7xl mx-auto px-5 sm:px-10 lg:px-16 py-10 sm:py-16 relative z-10 w-full">
+    <div className="max-w-lg">
+      <div className="flex items-center gap-2 mb-3">
+        <div className="w-6 h-0.5 bg-accent-green"></div>
+        <span className="text-primary font-semibold text-xs sm:text-sm tracking-widest uppercase">
+          OUR SERVICES
+        </span>
+      </div>
+
+      <h1 className="font-headings font-bold text-3xl sm:text-4xl lg:text-5xl text-foreground leading-tight mb-4">
+        {serviceData.titleLines.map((line: string, index: number) => (
+          <div key={index}>{line}</div>
+        ))}
+      </h1>
+
+      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-8 max-w-sm">
+        {serviceData.description}
+      </p>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-2">
+        <IconFeature icon={Layers} title="Scalable" subtitle="Solutions"/>
+        <IconFeature icon={ShieldCheck} title="Secure &" subtitle="Reliable"/>
+        <IconFeature icon={Cpu} title="Modern" subtitle="Technologies"/>
+        <IconFeature icon={Clock} title="On-time" subtitle="Delivery"/>
+      </div>
+    </div>
+  </div>
 </section>
+
 
 {/* OVERVIEW SECTION */}
+<section className="bg-white py-12 sm:py-16 px-4 sm:px-10 lg:px-16">
+  <div className="max-w-6xl mx-auto">
+    <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+      
+      <div className="w-full lg:w-1/2">
+        <div className="text-primary font-semibold text-xs sm:text-sm mb-2 tracking-wide uppercase">
+          OVERVIEW
+        </div>
+
+        <h2 className="font-headings font-bold text-2xl sm:text-4xl text-foreground leading-tight mb-5">
+          {serviceData.overviewTitle.map((line:string,index:number)=>(
+            <div key={index}>{line}</div>
+          ))}
+        </h2>
+
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6 max-w-md">
+          Our {serviceData.name.toLowerCase()} services help businesses solve complex challenges, improve efficiency, and build future-ready digital solutions.
+        </p>
+
+        <div className="flex flex-col gap-3 mb-8">
+          <CheckItem text="Business-focused solutions designed around your goals"/>
+          <CheckItem text="Transparent communication and agile development"/>
+          <CheckItem text="Secure and scalable technology solutions"/>
+          <CheckItem text="Long-term support after project delivery"/>
+        </div>
+
+        <button onClick={handleGetStartedClick} className="flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-xl text-xs sm:text-sm font-semibold hover:opacity-90 transition-opacity cursor-pointer shadow-md active:scale-95">
+          <ArrowRight className="w-4 h-4"/>
+          Discuss Your Project
+        </button>
+      </div>
+
+      {/* Dark Process Card Container */}
+      <div className="w-full lg:w-1/2">
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl" style={{ minHeight: '380px', background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0c1445 100%)' }}>
+          
+          {/* Header label */}
+          <div style={{ position: 'relative', zIndex: 10, padding: '24px 24px 10px' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(99,102,241,0.18)', border: '1px solid rgba(99,102,241,0.35)', borderRadius: '20px', padding: '5px 14px', marginBottom: '16px' }}>
+              <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#818cf8', animation: 'pulse 2s infinite' }} />
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#a5b4fc', letterSpacing: '0.08em' }}>OUR PROCESS</span>
+            </div>
+            <div style={{ fontSize: '14px', fontWeight: 700, color: 'white', marginBottom: '4px' }}>{serviceData.name}</div>
+            <div style={{ width: '32px', height: '2px', background: 'linear-gradient(90deg, #6366f1, #06b6d4)', borderRadius: '2px' }} />
+          </div>
+
+          {/* Process steps */}
+          <div style={{ position: 'relative', zIndex: 10, padding: '8px 24px 24px', display: 'flex', flexDirection: 'column', gap: '0' }}>
+            <PremiumProcessStep number="01" icon={Search}  color="#6366f1" label="Planning"   desc="Analyze goals and requirements." isLast={false} />
+            <PremiumProcessStep number="02" icon={PenTool}  color="#06b6d4" label="Design"     desc="Create user-focused solutions." isLast={false} />
+            <PremiumProcessStep number="03" icon={Code}     color="#8b5cf6" label="Development" desc="Build scalable systems."       isLast={false} />
+            <PremiumProcessStep number="04" icon={FlaskConical} color="#10b981" label="Testing"    desc="Ensure quality performance."   isLast={false} />
+            <PremiumProcessStep number="05" icon={Rocket}  color="#f59e0b" label="Deployment" desc="Launch and maintain."           isLast={true} />
+          </div>
+        </div>
+      </div>
 
-
-<section className="bg-white py-16 px-16">
-
-
-<div className="max-w-6xl mx-auto">
-
-
-<div className="flex gap-12 items-start">
-
-
-
-<div className="flex-1">
-
-
-<div className="text-primary font-semibold text-sm mb-2 tracking-wide">
-
-OVERVIEW
-
-</div>
-
-
-
-
-
-<h2 className="font-headings font-bold text-3xl text-foreground leading-tight mb-5">
-
-
-{
-serviceData.overviewTitle.map((line:string,index:number)=>(
-
-<div key={index}>
-
-{line}
-
-</div>
-
-))
-}
-
-
-</h2>
-
-
-
-
-
-
-<p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-md">
-
-
-Our {serviceData.name.toLowerCase()} services help businesses
-solve complex challenges, improve efficiency, and build
-future-ready digital solutions.
-
-
-</p>
-
-
-
-
-
-
-<div className="flex flex-col gap-3 mb-8">
-
-
-<CheckItem text="Business-focused solutions designed around your goals"/>
-
-<CheckItem text="Transparent communication and agile development"/>
-
-<CheckItem text="Secure and scalable technology solutions"/>
-
-<CheckItem text="Long-term support after project delivery"/>
-
-
-</div>
-
-
-
-
-
-
-<button onClick={handleGetStartedClick} className="flex items-center gap-2 bg-accent text-accent-foreground px-6 py-3 rounded-md text-sm font-medium hover:opacity-90 transition-opacity cursor-pointer">
-
-
-<ArrowRight className="w-4 h-4"/>
-
-Discuss Your Project
-
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-
-
-<div className="flex-1">
-
-
-<div className="relative w-full rounded-3xl overflow-hidden" style={{ minHeight: '420px', background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0c1445 100%)' }}>
-
-  {/* Decorative blurred orbs */}
-  <div style={{ position: 'absolute', top: '-40px', right: '-40px', width: '200px', height: '200px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(99,102,241,0.35) 0%, transparent 70%)', filter: 'blur(30px)', pointerEvents: 'none' }} />
-  <div style={{ position: 'absolute', bottom: '-30px', left: '-30px', width: '160px', height: '160px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(6,182,212,0.3) 0%, transparent 70%)', filter: 'blur(25px)', pointerEvents: 'none' }} />
-
-  {/* Header label */}
-  <div style={{ position: 'relative', zIndex: 10, padding: '28px 28px 10px' }}>
-    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'rgba(99,102,241,0.18)', border: '1px solid rgba(99,102,241,0.35)', borderRadius: '20px', padding: '5px 14px', marginBottom: '20px' }}>
-      <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#818cf8', animation: 'pulse 2s infinite' }} />
-      <span style={{ fontSize: '11px', fontWeight: 700, color: '#a5b4fc', letterSpacing: '0.08em' }}>OUR PROCESS</span>
     </div>
-    <div style={{ fontSize: '14px', fontWeight: 700, color: 'white', marginBottom: '4px' }}>{serviceData.name}</div>
-    <div style={{ width: '32px', height: '2px', background: 'linear-gradient(90deg, #6366f1, #06b6d4)', borderRadius: '2px' }} />
   </div>
-
-  {/* Process steps */}
-  <div style={{ position: 'relative', zIndex: 10, padding: '8px 28px 28px', display: 'flex', flexDirection: 'column', gap: '0' }}>
-
-    <PremiumProcessStep number="01" icon={Search}  color="#6366f1" label="Planning"   desc="Analyze goals and requirements." isLast={false} />
-    <PremiumProcessStep number="02" icon={PenTool}  color="#06b6d4" label="Design"     desc="Create user-focused solutions." isLast={false} />
-    <PremiumProcessStep number="03" icon={Code}     color="#8b5cf6" label="Development" desc="Build scalable systems."       isLast={false} />
-    <PremiumProcessStep number="04" icon={FlaskConical} color="#10b981" label="Testing"    desc="Ensure quality performance."   isLast={false} />
-    <PremiumProcessStep number="05" icon={Rocket}  color="#f59e0b" label="Deployment" desc="Launch and maintain."           isLast={true} />
-
-  </div>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
 </section>
-
-
-
-
-
-
-
-
 
 {/* FEATURES SECTION */}
-
-
-<section className="bg-white py-16 px-16">
-
-
-<div className="max-w-6xl mx-auto">
-
-
-<div className="text-center mb-12">
-
-
-<div className="text-primary font-semibold text-sm mb-2 tracking-wide">
-
-FEATURES & BENEFITS
-
-</div>
-
-
-
-
-
-<h2 className="font-headings font-bold text-3xl text-foreground">
-
-{serviceData.featureTitle}
-
-</h2>
-
-
-
-
-
-<div className="w-12 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
-
-
-</div>
-
-
-
-
-
-
-<div className="grid grid-cols-3 gap-6">
-
-
-<FeatureCard
-
-icon={Settings}
-
-title="Tailored Solutions"
-
-description="Solutions created according to your business requirements."
-
-iconColor="#1a7c3e"
-
-iconBg="#e8f5ee"
-
-/>
-
-
-
-
-
-<FeatureCard
-
-icon={LayoutDashboard}
-
-title="Scalable Architecture"
-
-description="Systems designed to grow with your business."
-
-iconColor="#2563eb"
-
-iconBg="#dbeafe"
-
-/>
-
-
-
-
-
-<FeatureCard
-
-icon={Shield}
-
-title="Enhanced Security"
-
-description="Protection using modern security practices."
-
-iconColor="#8b5cf6"
-
-iconBg="#f5f3ff"
-
-/>
-
-
-
-
-
-<FeatureCard
-
-icon={TrendingUp}
-
-title="Improved Efficiency"
-
-description="Better workflows and optimized operations."
-
-iconColor="#f97316"
-
-iconBg="#fff7ed"
-
-/>
-
-
-
-
-
-<FeatureCard
-
-icon={Users}
-
-title="Better Experience"
-
-description="User-focused solutions for better engagement."
-
-iconColor="#1a7c3e"
-
-iconBg="#e8f5ee"
-
-/>
-
-
-
-
-
-<FeatureCard
-
-icon={ShieldCheck}
-
-title="Continuous Support"
-
-description="Ongoing assistance after deployment."
-
-iconColor="#2563eb"
-
-iconBg="#dbeafe"
-
-/>
-
-
-
-</div>
-
-
-</div>
-
-
+<section className="bg-white py-12 sm:py-16 px-4 sm:px-10 lg:px-16 border-t border-slate-100">
+  <div className="max-w-6xl mx-auto">
+    <div className="text-center mb-10 sm:mb-12">
+      <div className="text-primary font-semibold text-xs sm:text-sm mb-2 tracking-wide uppercase">
+        FEATURES & BENEFITS
+      </div>
+      <h2 className="font-headings font-bold text-2xl sm:text-4xl text-foreground">
+        {serviceData.featureTitle}
+      </h2>
+      <div className="w-12 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+    </div>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <FeatureCard
+        icon={Settings}
+        title="Tailored Solutions"
+        description="Solutions created according to your business requirements."
+        iconColor="#1a7c3e"
+        iconBg="#e8f5ee"
+      />
+
+      <FeatureCard
+        icon={LayoutDashboard}
+        title="Scalable Architecture"
+        description="Systems designed to grow with your business."
+        iconColor="#2563eb"
+        iconBg="#dbeafe"
+      />
+
+      <FeatureCard
+        icon={Shield}
+        title="Enhanced Security"
+        description="Protection using modern security practices."
+        iconColor="#8b5cf6"
+        iconBg="#f5f3ff"
+      />
+
+      <FeatureCard
+        icon={TrendingUp}
+        title="Improved Efficiency"
+        description="Better workflows and optimized operations."
+        iconColor="#f97316"
+        iconBg="#fff7ed"
+      />
+
+      <FeatureCard
+        icon={Users}
+        title="Better Experience"
+        description="User-focused solutions for better engagement."
+        iconColor="#1a7c3e"
+        iconBg="#e8f5ee"
+      />
+
+      <FeatureCard
+        icon={ShieldCheck}
+        title="Continuous Support"
+        description="Ongoing assistance after deployment."
+        iconColor="#2563eb"
+        iconBg="#dbeafe"
+      />
+    </div>
+  </div>
 </section>
-
-
-
-
-
-
-
-
 
 {/* PROCESS SECTION */}
+<section className="bg-gray-50 py-12 sm:py-16 px-4 sm:px-10 lg:px-16">
+  <div className="max-w-6xl mx-auto">
+    <div className="text-center mb-10 sm:mb-12">
+      <div className="text-primary font-semibold text-xs sm:text-sm mb-2 tracking-wide uppercase">
+        OUR PROCESS
+      </div>
+      <h2 className="font-headings font-bold text-2xl sm:text-4xl text-foreground">
+        Our Development Process
+      </h2>
+      <div className="w-12 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+    </div>
 
-
-<section className="bg-gray-50 py-16 px-16">
-
-
-<div className="max-w-6xl mx-auto">
-
-
-<div className="text-center mb-12">
-
-
-<div className="text-primary font-semibold text-sm mb-2 tracking-wide">
-
-OUR PROCESS
-
-</div>
-
-
-
-
-
-<h2 className="font-headings font-bold text-3xl text-foreground">
-
-Our Development Process
-
-</h2>
-
-
-
-<div className="w-12 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
-
-
-</div>
-
-
-
-
-
-
-
-<div className="flex items-start justify-between gap-3">
-
-
-<ProcessStep number="01" icon={Search} title="Research" description="Understand requirements." hasLine={true}/>
-
-
-<ProcessStep number="02" icon={LayoutDashboard} title="Planning" description="Create roadmap." hasLine={true}/>
-
-
-<ProcessStep number="03" icon={PenTool} title="Design" description="Build experience." hasLine={true}/>
-
-
-<ProcessStep number="04" icon={Code} title="Development" description="Create solution." hasLine={true}/>
-
-
-<ProcessStep number="05" icon={FlaskConical} title="Testing" description="Check quality." hasLine={true}/>
-
-
-<ProcessStep number="06" icon={Rocket} title="Deployment" description="Launch successfully." hasLine={false}/>
-
-
-
-</div>
-
-
-</div>
-
-
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+      <ProcessStep number="01" icon={Search} title="Research" description="Understand requirements." hasLine={true}/>
+      <ProcessStep number="02" icon={LayoutDashboard} title="Planning" description="Create roadmap." hasLine={true}/>
+      <ProcessStep number="03" icon={PenTool} title="Design" description="Build experience." hasLine={true}/>
+      <ProcessStep number="04" icon={Code} title="Development" description="Create solution." hasLine={true}/>
+      <ProcessStep number="05" icon={FlaskConical} title="Testing" description="Check quality." hasLine={true}/>
+      <ProcessStep number="06" icon={Rocket} title="Deployment" description="Launch successfully." hasLine={false}/>
+    </div>
+  </div>
 </section>
 
-
-
-
-
-
-
-
-
 {/* TECHNOLOGY SECTION */}
+<section className="bg-white py-12 sm:py-16 px-4 sm:px-10 lg:px-16">
+  <div className="max-w-6xl mx-auto">
+    <div className="text-center mb-10 sm:mb-12">
+      <div className="text-primary font-semibold text-xs sm:text-sm mb-2 tracking-wide uppercase">
+        TECHNOLOGIES WE USE
+      </div>
+      <h2 className="font-headings font-bold text-2xl sm:text-4xl text-foreground">
+        Modern Technologies for Robust Solutions
+      </h2>
+      <div className="w-12 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
+    </div>
 
-
-<section className="bg-white py-16 px-16">
-
-
-<div className="max-w-6xl mx-auto">
-
-
-<div className="text-center mb-12">
-
-
-<div className="text-primary font-semibold text-sm mb-2 tracking-wide">
-
-TECHNOLOGIES WE USE
-
-</div>
-
-
-
-
-
-<h2 className="font-headings font-bold text-3xl text-foreground">
-
-Modern Technologies for Robust Solutions
-
-</h2>
-
-
-
-
-<div className="w-12 h-1 bg-primary mx-auto mt-4 rounded-full"></div>
-
-
-</div>
-
-
-
-
-
-
-<div className="flex flex-wrap justify-center gap-8">
-
-{
-
-serviceData.technologies?.map((tech:any,index:number)=>(
-
-<TechBadge
-
-key={index}
-
-name={tech.name}
-
-logo={tech.logo}
-
-/>
-
-))
-
-}
-
-</div>
-
-
-</div>
-
-
+    <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+      {serviceData.technologies?.map((tech:any,index:number)=>(
+        <TechBadge
+          key={index}
+          name={tech.name}
+          logo={tech.logo}
+        />
+      ))}
+    </div>
+  </div>
 </section>
 
 {/* CTA SECTION */}
+<section className="mx-4 sm:mx-10 lg:mx-16 my-8 sm:my-12 rounded-2xl overflow-hidden relative shadow-2xl">
+  <div className="absolute inset-0">
+    <img
+      src="/assets/home/ctabg.png"
+      alt="CTA Background"
+      className="w-full h-full object-cover"
+    />
+    <div className="absolute inset-0 bg-slate-900/80"></div>
+  </div>
 
+  <div className="flex flex-col sm:flex-row items-center justify-between px-6 sm:px-12 py-10 sm:py-14 relative z-10 gap-6 text-center sm:text-left">
+    <div className="max-w-lg">
+      <h2 className="font-headings font-bold text-2xl sm:text-3xl text-white leading-tight mb-3">
+        {serviceData.ctaTitle}
+      </h2>
+      <p className="text-white/90 text-xs sm:text-sm leading-relaxed">
+        Let&apos;s turn your ideas into powerful digital solutions that help your business grow.
+      </p>
+    </div>
 
-<section className="mx-16 my-12 rounded-2xl overflow-hidden relative">
-
-
-<div className="absolute inset-0">
-
-
-<img
-
-src="/assets/home/ctabg.png"
-
-alt="CTA Background"
-
-className="w-full h-full object-cover"
-
-/>
-
-
-
-<div className="absolute inset-0 bg-slate-900 opacity-70"></div>
-
-
-</div>
-
-
-
-
-
-
-
-<div className="flex items-center justify-between px-16 py-14 relative z-10">
-
-
-<div className="max-w-lg">
-
-
-<h2 className="font-headings font-bold text-3xl text-white leading-tight mb-4">
-
-
-{serviceData.ctaTitle}
-
-
-</h2>
-
-
-
-
-
-<p className="text-white opacity-90 text-base">
-
-
-Let's turn your ideas into powerful digital solutions that help your business grow.
-
-
-</p>
-
-
-</div>
-
-
-
-
-
-
-
-<button 
-  onClick={handleGetStartedClick}
-  className="flex items-center gap-2 border-2 border-white text-white px-7 py-3 rounded-md text-sm font-medium hover:bg-white hover:text-slate-900 transition cursor-pointer"
->
-
-
-Get Started Today
-
-
-<ArrowRight className="w-4 h-4"/>
-
-
-</button>
-
-
-
-</div>
-
-
+    <button 
+      onClick={handleGetStartedClick}
+      className="flex items-center gap-2 border-2 border-white text-white px-7 py-3 rounded-xl text-xs sm:text-sm font-semibold hover:bg-white hover:text-slate-900 transition-all cursor-pointer shadow-md active:scale-95 shrink-0"
+    >
+      <span>Get Started Today</span>
+      <ArrowRight className="w-4 h-4"/>
+    </button>
+  </div>
 </section>
 
-
-
-
-
-
+{/* FOOTER */}
 <Footer />
-
-
 </div>
-
-
 );
-
 }
 
 

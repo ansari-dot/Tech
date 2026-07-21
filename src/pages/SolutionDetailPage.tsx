@@ -46,9 +46,9 @@ export default function SolutionDetailPage() {
       />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden" style={{ minHeight: '450px' }}>
-        {/* Background Banner Image */}
-        <div className="absolute inset-0 w-full h-full">
+      <section className="relative overflow-hidden bg-slate-50/50 lg:bg-transparent min-h-0 lg:min-h-[450px] flex items-center">
+        {/* Background Banner Image (Desktop) */}
+        <div className="hidden lg:block absolute inset-0 w-full h-full">
           <img
             src="/assets/iddbg.png"
             alt="Solution Banner"
@@ -56,13 +56,23 @@ export default function SolutionDetailPage() {
           />
         </div>
 
-        {/* White Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white to-transparent" style={{ width: '55%' }}></div>
+        {/* White Gradient Overlay (Desktop) */}
+        <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white to-transparent" style={{ width: '55%' }}></div>
 
-        <div className="max-w-6xl mx-auto px-8 py-16 relative z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 lg:py-16 relative z-10 w-full">
           <div className="max-w-xl">
+            
+            {/* Mobile Image Container */}
+            <div className="block lg:hidden w-full h-52 sm:h-72 rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-white mb-6">
+              <img
+                src="/assets/iddbg.png"
+                alt="Solution Banner"
+                className="w-full h-full object-cover sm:object-contain"
+              />
+            </div>
+
             {/* Breadcrumb */}
-            <div className="text-xs text-muted-foreground mb-4 flex items-center gap-2">
+            <div className="text-xs text-muted-foreground mb-4 flex items-center gap-2 flex-wrap">
               <span className="text-foreground opacity-50">Home</span>
               <span>›</span>
               <span className="text-muted-foreground">Industries</span>
@@ -79,15 +89,18 @@ export default function SolutionDetailPage() {
               </span>
             </div>
             
-            <h1 className="font-headings font-bold text-5xl text-foreground leading-tight mb-1">
+            <h1 className="font-headings font-bold text-3xl sm:text-5xl text-foreground leading-tight mb-1">
               Data <span className="text-primary">Silos</span>
             </h1>
             
-            <p className="text-base text-muted-foreground leading-relaxed mt-4">
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mt-4">
               {solutionData.description}
             </p>
             
-            <button className="mt-6 text-primary font-semibold text-sm flex items-center gap-2 hover:gap-3 transition-all">
+            <button 
+              onClick={() => navigate(`/industries/${industry}`)}
+              className="mt-6 text-primary font-semibold text-sm flex items-center gap-2 hover:gap-3 transition-all cursor-pointer"
+            >
               <span>← Back to Challenges</span>
             </button>
           </div>
@@ -95,9 +108,9 @@ export default function SolutionDetailPage() {
       </section>
 
       {/* Challenge Cards */}
-      <section className="bg-white py-16">
-        <div className="max-w-6xl mx-auto px-8">
-          <div className="grid grid-cols-4 gap-6">
+      <section className="bg-white py-12 sm:py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <ChallengeCard 
               icon={FileText}
               title="The Challenge"

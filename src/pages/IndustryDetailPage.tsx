@@ -561,19 +561,12 @@ onGetStartedClick={handleGetStartedClick}
 
 <section
 
-className="relative overflow-hidden"
-
-style={{
-minHeight:"520px"
-}}
+className="relative overflow-hidden bg-slate-50/50 lg:bg-transparent min-h-0 lg:min-h-[480px] flex items-center"
 
 >
 
-
-
-<div className="absolute inset-0 w-full h-full">
-
-
+{/* Desktop Background Image */}
+<div className="hidden lg:block absolute inset-0 w-full h-full">
 
 <img
 
@@ -595,19 +588,13 @@ transform:`scale(${data.heroScale})`
 
 />
 
-
-
 </div>
 
 
-
-
-
-
-
+{/* Desktop White Gradient Overlay */}
 <div
 
-className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent"
+className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent"
 
 style={{
 width:"58%"
@@ -616,17 +603,18 @@ width:"58%"
 />
 
 
-
-
-
-
-
-
-<div className="max-w-6xl mx-auto px-10 py-20 relative z-10">
-
-
+<div className="max-w-6xl mx-auto px-4 sm:px-10 py-8 lg:py-20 relative z-10 w-full">
 
 <div className="max-w-xl">
+
+{/* Mobile Image Container (Shows image fully on mobile without cropping) */}
+<div className="block lg:hidden w-full h-56 sm:h-72 rounded-2xl overflow-hidden shadow-xl border border-slate-200/80 bg-white mb-6">
+  <img
+    src={data.heroImage}
+    alt={`${data.name} Banner`}
+    className="w-full h-full object-cover sm:object-contain"
+  />
+</div>
 
 
 

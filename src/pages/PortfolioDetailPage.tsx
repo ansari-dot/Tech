@@ -110,98 +110,87 @@ export default function PortfolioDetailPage() {
 
       <main className="flex-grow">
         
-        {/* 1. HERO SECTION - Full Screen Background Screenshot Banner */}
-        <section className="relative overflow-hidden min-h-[450px] flex items-center border-b border-slate-100 animate-fade-in">
+        {/* 1. HERO SECTION - Full Width Background Image */}
+        <section className="relative overflow-hidden min-h-[380px] sm:min-h-[460px] flex items-center bg-slate-50">
           {/* Background Banner Image */}
           <div className="absolute inset-0 w-full h-full">
             <img
               src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-right opacity-90 sm:opacity-100"
             />
           </div>
 
           {/* White Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white to-transparent" style={{ width: '55%' }}></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/30 sm:to-transparent w-full sm:w-[70%] lg:w-[55%]"></div>
 
-          {/* Decorative Dots */}
-          <div className="absolute left-4 top-8 flex flex-col gap-1.5 opacity-20 z-10">
-            {Array.from({ length: 8 }).map((_, row) => (
-              <div key={row} className="flex gap-1.5">
-                {Array.from({ length: 3 }).map((_, col) => (
-                  <div key={col} className="w-1.5 h-1.5 rounded-full bg-slate-400"></div>
-                ))}
-              </div>
-            ))}
-          </div>
-
-          <div className="max-w-6xl pl-8 sm:pl-16 md:pl-24 w-full relative z-10 py-16 text-left">
-            <div className="max-w-xl space-y-6">
+          <div className="max-w-7xl mx-auto px-5 sm:px-10 lg:px-16 w-full relative z-10 py-10 sm:py-16 text-left">
+            <div className="max-w-lg">
               
-              {/* Green badge line */}
-              <div className="flex items-center gap-2">
-                <span className="w-5 h-[2.5px] bg-emerald-500 rounded"></span>
-                <span className="text-emerald-500 font-extrabold text-[11px] tracking-widest uppercase">
+              {/* Badge line */}
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-6 h-0.5 bg-accent-green"></div>
+                <span className="text-primary font-semibold text-xs sm:text-sm tracking-widest uppercase">
                   PROJECT DETAILS
                 </span>
               </div>
 
               {/* Split title */}
-              <h1 className="font-headings font-extrabold text-4xl sm:text-5xl leading-[1.1] text-slate-900 tracking-tight">
+              <h1 className="font-headings font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight text-foreground mb-4">
                 {titleFirst} <br />
                 <span className="text-primary">{titleLast}</span>
               </h1>
 
               {/* Short description */}
-              <p className="text-slate-500 text-sm leading-relaxed max-w-md font-normal">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-6 max-w-sm">
                 {project.shortDesc}
               </p>
 
-              {/* Technical specs icons row */}
-              <div className="flex flex-wrap gap-x-8 gap-y-4 py-6 border-t border-slate-200/80">
+              {/* Technical specs icons 2x2 responsive grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 border-t border-slate-200/80 mb-6">
                 {project.clientName && (
-                  <div className="flex items-center gap-3">
-                    <Briefcase className="w-5 h-5 text-slate-400" strokeWidth={2} />
+                  <div className="flex items-center gap-2.5">
+                    <Briefcase className="w-4 h-4 text-primary shrink-0" strokeWidth={2} />
                     <div>
-                      <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Client</div>
-                      <div className="text-xs font-bold text-slate-700">{project.clientName}</div>
+                      <div className="text-[9px] text-muted-foreground font-semibold uppercase tracking-wider">Client</div>
+                      <div className="text-xs font-bold text-foreground truncate">{project.clientName}</div>
                     </div>
                   </div>
                 )}
 
-                <div className="flex items-center gap-3">
-                  <Calendar className="w-5 h-5 text-slate-400" strokeWidth={2} />
+                <div className="flex items-center gap-2.5">
+                  <Calendar className="w-4 h-4 text-primary shrink-0" strokeWidth={2} />
                   <div>
-                    <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Duration</div>
-                    <div className="text-xs font-bold text-slate-700">{project.timeline}</div>
+                    <div className="text-[9px] text-muted-foreground font-semibold uppercase tracking-wider">Duration</div>
+                    <div className="text-xs font-bold text-foreground">{project.timeline}</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <ShoppingCart className="w-5 h-5 text-slate-400" strokeWidth={2} />
+                <div className="flex items-center gap-2.5">
+                  <ShoppingCart className="w-4 h-4 text-primary shrink-0" strokeWidth={2} />
                   <div>
-                    <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Category</div>
-                    <div className="text-xs font-bold text-slate-700">{project.category}</div>
+                    <div className="text-[9px] text-muted-foreground font-semibold uppercase tracking-wider">Category</div>
+                    <div className="text-xs font-bold text-foreground truncate">{project.category}</div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <Clock className="w-5 h-5 text-slate-400" strokeWidth={2} />
+                <div className="flex items-center gap-2.5">
+                  <Clock className="w-4 h-4 text-primary shrink-0" strokeWidth={2} />
                   <div>
-                    <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Live</div>
-                    <div className="text-xs font-bold text-slate-700">Live Project</div>
+                    <div className="text-[9px] text-muted-foreground font-semibold uppercase tracking-wider">Live</div>
+                    <div className="text-xs font-bold text-foreground">Live Project</div>
                   </div>
                 </div>
               </div>
 
-              {/* Dynamic Actions */}
-              <div className="flex flex-wrap gap-4 pt-2">
+              {/* Action buttons matching exact ServiceDetailPage button design */}
+              <div className="flex flex-wrap gap-3">
                 {project.liveUrl ? (
                   <a
                     href={project.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 bg-primary hover:bg-opacity-95 text-white font-sans font-bold text-[10px] sm:text-xs tracking-widest uppercase px-6 py-3 rounded-md shadow-md shadow-primary/10 transition-all cursor-pointer"
+                    className="flex items-center gap-2 bg-primary hover:bg-opacity-95 text-white font-semibold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all cursor-pointer shadow-md active:scale-95"
                   >
                     <span>Live Preview</span>
                     <Globe className="w-4 h-4" />
@@ -209,7 +198,7 @@ export default function PortfolioDetailPage() {
                 ) : (
                   <button
                     onClick={getStartedWithWhatsApp}
-                    className="flex items-center gap-2 bg-primary hover:bg-opacity-95 text-white font-sans font-bold text-[10px] sm:text-xs tracking-widest uppercase px-6 py-3 rounded-md shadow-md shadow-primary/10 transition-all cursor-pointer"
+                    className="flex items-center gap-2 bg-primary hover:bg-opacity-95 text-white font-semibold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all cursor-pointer shadow-md active:scale-95"
                   >
                     <span>Live Preview</span>
                     <ArrowRight className="w-4 h-4" />
@@ -219,7 +208,7 @@ export default function PortfolioDetailPage() {
                 {project.caseStudyPdf || true ? (
                   <button
                     onClick={() => generateCaseStudyPdf(project)}
-                    className="flex items-center gap-2 border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 font-sans font-bold text-[10px] sm:text-xs tracking-widest uppercase px-6 py-3 rounded-md transition-all cursor-pointer bg-white"
+                    className="flex items-center gap-2 bg-white border border-border hover:bg-slate-50 text-foreground font-semibold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all cursor-pointer shadow-xs active:scale-95"
                   >
                     <span>Case Study</span>
                     <Download className="w-4 h-4" />
@@ -227,7 +216,7 @@ export default function PortfolioDetailPage() {
                 ) : (
                   <button
                     onClick={() => triggerLeadModal("quote")}
-                    className="flex items-center gap-2 border-2 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40 font-sans font-bold text-[10px] sm:text-xs tracking-widest uppercase px-6 py-3 rounded-md transition-all cursor-pointer bg-white"
+                    className="flex items-center gap-2 bg-white border border-border hover:bg-slate-50 text-foreground font-semibold text-xs sm:text-sm px-6 py-3 rounded-xl transition-all cursor-pointer shadow-xs active:scale-95"
                   >
                     <span>Case Study</span>
                     <Download className="w-4 h-4" />
@@ -240,7 +229,7 @@ export default function PortfolioDetailPage() {
         </section>
 
         {/* 2. OVERVIEW OF THE PROJECT SECTION */}
-        <section className="py-20 px-6 sm:px-12 md:px-16 bg-white border-b border-slate-100">
+        <section className="py-12 sm:py-16 px-4 sm:px-10 lg:px-16 bg-white border-b border-slate-100">
           <div className="max-w-6xl mx-auto text-center">
             
             {/* Center Header */}
@@ -249,23 +238,23 @@ export default function PortfolioDetailPage() {
             </div>
             <div className="w-10 h-[2.5px] bg-emerald-500 mx-auto rounded-full mb-4"></div>
             
-            <h2 className="font-headings font-extrabold text-2xl sm:text-3xl text-slate-900 mb-6">
+            <h2 className="font-headings font-extrabold text-2xl sm:text-4xl text-slate-900 mb-4 sm:mb-6">
               Overview <span className="text-primary">of the Project</span>
             </h2>
             
-            <p className="text-slate-500 text-[13px] leading-relaxed max-w-2xl mx-auto mb-16 font-normal">
+            <p className="text-slate-500 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto mb-10 sm:mb-14 font-normal">
               {project.longDesc}
             </p>
 
             {/* Split Content (Mockup Device & Features List) */}
-            <div className="flex flex-col lg:flex-row gap-16 items-center text-left">
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-14 items-center text-left">
               
               {/* Left Column Browser Device Mockup */}
               <div className="flex-1 w-full max-w-[500px] mx-auto relative group">
                 <div className="absolute inset-0 bg-primary/5 rounded-3xl scale-[1.03] blur-lg transition-transform duration-500"></div>
-                <div className="bg-white border border-slate-200 rounded-3xl shadow-xl overflow-hidden aspect-[16/10] flex flex-col relative z-10">
+                <div className="bg-white border border-slate-200 rounded-2xl sm:rounded-3xl shadow-xl overflow-hidden aspect-[16/10] flex flex-col relative z-10">
                   {/* Browser top header */}
-                  <div className="h-6 bg-slate-50 border-b border-slate-100 flex items-center px-4 gap-1.5 rounded-t-3xl flex-shrink-0">
+                  <div className="h-6 bg-slate-50 border-b border-slate-100 flex items-center px-4 gap-1.5 rounded-t-2xl sm:rounded-t-3xl flex-shrink-0">
                     <div className="w-2 h-2 rounded-full bg-red-400"></div>
                     <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
                     <div className="w-2 h-2 rounded-full bg-green-400"></div>
@@ -282,19 +271,19 @@ export default function PortfolioDetailPage() {
               </div>
 
               {/* Right Column Features Grid */}
-              <div className="flex-[1.5] w-full grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+              <div className="flex-[1.5] w-full grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-5">
                 {featuresList.map((feat, idx) => {
                   const FeatIcon = feat.icon;
                   return (
-                    <div key={idx} className="flex gap-4 items-start group">
-                      <div className={`w-11 h-11 rounded-full ${feat.bg} flex items-center justify-center flex-shrink-0 shadow-sm border border-slate-100`}>
-                        <FeatIcon className={`w-5 h-5 ${feat.text}`} />
+                    <div key={idx} className="flex gap-3.5 items-start group">
+                      <div className={`w-10 h-10 rounded-full ${feat.bg} flex items-center justify-center flex-shrink-0 shadow-xs border border-slate-100`}>
+                        <FeatIcon className={`w-4.5 h-4.5 ${feat.text}`} />
                       </div>
-                      <div className="space-y-1">
-                        <h4 className="font-headings font-bold text-sm text-slate-800 group-hover:text-primary transition-colors">
+                      <div className="space-y-0.5 min-w-0">
+                        <h4 className="font-headings font-bold text-xs sm:text-sm text-slate-800 group-hover:text-primary transition-colors">
                           {feat.title}
                         </h4>
-                        <p className="text-slate-500 text-xs leading-relaxed font-normal">
+                        <p className="text-slate-500 text-[11px] sm:text-xs leading-relaxed font-normal">
                           {feat.desc}
                         </p>
                       </div>
@@ -309,24 +298,24 @@ export default function PortfolioDetailPage() {
         </section>
 
         {/* 3. TECHNOLOGIES USED SECTION */}
-        <section className="py-16 px-6 sm:px-12 md:px-16 bg-[#f8fafc] border-b border-slate-100">
+        <section className="py-12 sm:py-16 px-4 sm:px-10 lg:px-16 bg-[#f8fafc] border-b border-slate-100">
           <div className="max-w-6xl mx-auto text-center">
             
             <div className="text-primary font-bold text-[11px] tracking-widest uppercase mb-1">
               TECHNOLOGIES USED
             </div>
-            <div className="w-10 h-[2.5px] bg-emerald-500 mx-auto rounded-full mb-10"></div>
+            <div className="w-10 h-[2.5px] bg-emerald-500 mx-auto rounded-full mb-8 sm:mb-10"></div>
 
             {/* Square Badges Row */}
-            <div className="flex flex-wrap justify-center gap-6 md:gap-8 max-w-5xl mx-auto">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8 max-w-5xl mx-auto">
               {project.technologies.map((tech, idx) => {
                 const emblem = getTechEmblem(tech);
                 return (
-                  <div key={idx} className="flex flex-col items-center gap-3 group">
-                    <div className="w-20 h-20 bg-white border border-slate-200/80 rounded-2xl flex items-center justify-center shadow-xs group-hover:border-primary group-hover:shadow-md transition-all duration-300">
+                  <div key={idx} className="flex flex-col items-center gap-2.5 group">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white border border-slate-200/80 rounded-2xl flex items-center justify-center shadow-xs group-hover:border-primary group-hover:shadow-md transition-all duration-300">
                       <div className="select-none flex items-center justify-center">{emblem}</div>
                     </div>
-                    <span className="text-[11px] font-bold text-slate-600 group-hover:text-primary transition-colors">
+                    <span className="text-[10px] sm:text-[11px] font-bold text-slate-600 group-hover:text-primary transition-colors">
                       {tech}
                     </span>
                   </div>
@@ -338,16 +327,16 @@ export default function PortfolioDetailPage() {
         </section>
 
         {/* 4. KEY RESULTS SECTION */}
-        <section className="py-20 px-6 sm:px-12 md:px-16 bg-white border-b border-slate-100">
+        <section className="py-12 sm:py-16 px-4 sm:px-10 lg:px-16 bg-white border-b border-slate-100">
           <div className="max-w-6xl mx-auto text-center">
             
             <div className="text-primary font-bold text-[11px] tracking-widest uppercase mb-1">
               KEY RESULTS
             </div>
-            <div className="w-10 h-[2.5px] bg-emerald-500 mx-auto rounded-full mb-12"></div>
+            <div className="w-10 h-[2.5px] bg-emerald-500 mx-auto rounded-full mb-8 sm:mb-12"></div>
 
             {/* Horizontal outcomes grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {project.metrics.map((metric, idx) => {
                 const colorConfig = metricColors[idx % metricColors.length];
                 const StatIcon = colorConfig.icon;
@@ -358,9 +347,9 @@ export default function PortfolioDetailPage() {
                 return (
                   <div 
                     key={idx}
-                    className={`bg-white border ${colorConfig.border} rounded-2xl p-6 flex items-start gap-4 shadow-sm hover:shadow-md transition-all duration-300 text-left`}
+                    className={`bg-white border ${colorConfig.border} rounded-2xl p-5 sm:p-6 flex items-start gap-4 shadow-xs hover:shadow-md transition-all duration-300 text-left`}
                   >
-                    <div className={`w-11 h-11 rounded-xl ${colorConfig.bg} flex items-center justify-center text-slate-800 flex-shrink-0`}>
+                    <div className={`w-11 h-11 rounded-xl ${colorConfig.bg} flex items-center justify-center text-slate-800 shrink-0`}>
                       <StatIcon className={`w-5 h-5 ${colorConfig.text}`} />
                     </div>
                     <div className="space-y-1 min-w-0">
@@ -380,8 +369,8 @@ export default function PortfolioDetailPage() {
         </section>
 
         {/* 5. DYNAMIC CAROUSEL - Explore Next Case */}
-        <section className="py-16 px-6 sm:px-12 md:px-16 bg-[#f8fafc] border-b border-slate-100">
-          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+        <section className="py-10 sm:py-14 px-4 sm:px-10 lg:px-16 bg-[#f8fafc] border-b border-slate-100">
+          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <button 
               onClick={() => navigate('/portfolio')}
               className="flex items-center gap-2 text-xs font-extrabold text-slate-500 hover:text-primary uppercase tracking-wider transition-colors cursor-pointer"
@@ -392,13 +381,13 @@ export default function PortfolioDetailPage() {
             
             <div 
               onClick={() => navigate(`/portfolio/${nextProject.id}`)}
-              className="flex items-center gap-4 bg-white border border-slate-200/80 rounded-xl p-4 cursor-pointer hover:border-primary hover:shadow-md transition-all group"
+              className="w-full sm:w-auto flex items-center justify-between sm:justify-end gap-4 bg-white border border-slate-200/80 rounded-xl p-4 cursor-pointer hover:border-primary hover:shadow-md transition-all group"
             >
-              <div className="text-right">
+              <div className="text-left sm:text-right">
                 <span className="text-[9px] text-slate-400 font-bold tracking-wider uppercase block mb-0.5">Explore Next Case</span>
                 <span className="text-xs font-extrabold text-slate-800 group-hover:text-primary transition-colors">{nextProject.title}</span>
               </div>
-              <div className="w-9 h-9 rounded-lg bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all">
+              <div className="w-9 h-9 rounded-lg bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all shrink-0">
                 <ArrowRight className="w-4 h-4" />
               </div>
             </div>
@@ -406,11 +395,11 @@ export default function PortfolioDetailPage() {
         </section>
 
         {/* 6. CTA BANNER CARD */}
-        <section className="py-10 px-6 sm:px-12 md:px-16 max-w-6xl mx-auto">
-          <div className="bg-white border border-[#dbebff] rounded-2xl shadow-md overflow-hidden flex flex-col md:flex-row items-stretch text-left">
+        <section className="py-8 sm:py-12 px-4 sm:px-10 lg:px-16 max-w-6xl mx-auto">
+          <div className="bg-white border border-[#dbebff] rounded-2xl shadow-md overflow-hidden flex flex-col sm:flex-row items-stretch text-center sm:text-left">
             
-            {/* Left Rocket Illustration Frame - Edge-to-Edge full-height (fixed compact width) */}
-            <div className="w-full md:w-[220px] shrink-0 min-h-[160px] md:min-h-0 relative bg-slate-900">
+            {/* Left Rocket Illustration Frame */}
+            <div className="w-full sm:w-[200px] shrink-0 h-40 sm:h-auto relative bg-slate-900">
               <img 
                 src="/assets/rocket_launch_cta.png" 
                 alt="Rocket Blast" 
@@ -419,9 +408,9 @@ export default function PortfolioDetailPage() {
             </div>
 
             {/* Right Content Block (Text & Actions) */}
-            <div className="flex-grow p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="flex-grow p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
               {/* Middle text description */}
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 <div className="text-[#10b981] font-bold text-[10px] tracking-widest uppercase">
                   LIKE WHAT YOU SEE?
                 </div>
@@ -435,10 +424,10 @@ export default function PortfolioDetailPage() {
               </div>
 
               {/* Right Button */}
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <button 
                   onClick={getStartedWithWhatsApp} 
-                  className="flex items-center gap-2 bg-primary hover:bg-[#0047df] text-white font-sans font-bold text-xs tracking-wider uppercase px-6 py-3 rounded-lg shadow-md shadow-primary/10 transition-all cursor-pointer whitespace-nowrap"
+                  className="flex items-center gap-2 bg-primary hover:bg-[#0047df] text-white font-sans font-bold text-xs tracking-wider uppercase px-6 py-3 rounded-xl shadow-md transition-all cursor-pointer whitespace-nowrap active:scale-95"
                 >
                   <span>Start Your Project</span>
                   <span className="text-xs">→</span>

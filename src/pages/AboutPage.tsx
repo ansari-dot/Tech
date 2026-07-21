@@ -25,53 +25,46 @@ export default function AboutPage() {
       />
 
       {/* Hero Section */}
-      <section className="w-full flex items-center bg-white relative overflow-hidden min-h-[300px]">
+      <section className="w-full flex items-center bg-slate-50 relative overflow-hidden min-h-[360px] sm:min-h-[400px]">
         {/* Background Image on Right */}
         <div className="absolute inset-0 w-full h-full">
           <img
             src="/assets/about/aboutbanner.png"
             alt="About Banner"
-            className="w-full h-full object-cover object-right"
+            className="w-full h-full object-cover object-right opacity-90 sm:opacity-100"
           />
         </div>
 
         {/* White Gradient Overlay for Text Area */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white to-transparent" style={{ width: '55%' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/30 sm:to-transparent w-full sm:w-[70%] lg:w-[55%]"></div>
 
-        {/* Left Content */}
-        <div className="flex flex-col items-start z-10 relative max-w-xl px-16 py-16">
+        {/* Content */}
+        <div className="flex flex-col items-start z-10 relative max-w-[1280px] mx-auto px-5 sm:px-10 lg:px-16 py-10 sm:py-16 w-full">
           <div className="flex items-center gap-2 mb-4">
             <span className="block w-6 h-0.5 bg-accent-green"></span>
-            <span className="text-xs font-medium text-accent-green tracking-widest uppercase">
+            <span className="text-xs font-semibold text-accent-green tracking-widest uppercase">
               ABOUT US
             </span>
           </div>
           
-          <h1 className="font-headings font-bold text-5xl text-foreground leading-tight mb-2">
+          <h1 className="font-headings font-bold text-3xl sm:text-4xl lg:text-5xl text-foreground leading-tight mb-2">
             Building Technology.
           </h1>
-          <h1 className="font-headings font-bold text-5xl text-primary leading-tight mb-6">
+          <h1 className="font-headings font-bold text-3xl sm:text-4xl lg:text-5xl text-primary leading-tight mb-6">
             Creating Impact.
           </h1>
           
-          <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
+          <p className="text-xs sm:text-sm text-muted-foreground mb-4 leading-relaxed max-w-md">
             At 3Novator Tech, we believe technology is more than just code and systems—it's a catalyst for growth, innovation, and positive change.
           </p>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-md">
             We partner with businesses of all sizes to build digital solutions that solve real challenges and drive measurable results.
           </p>
-          
-          {/* Dot Grid */}
-          <div className="mt-8 grid grid-cols-6 gap-2">
-            {Array.from({ length: 30 }).map((_, i) => (
-              <div key={i} className="w-1.5 h-1.5 rounded-full bg-border"></div>
-            ))}
-          </div>
         </div>
       </section>
 
       {/* Values Section */}
-      <section className="w-full bg-white py-16 px-16">
+      <section className="w-full bg-white py-12 sm:py-16 px-4 sm:px-10 lg:px-16">
         <div className="flex flex-col items-center mb-12">
           <div className="flex items-center gap-2 mb-1">
             <span className="block w-5 h-0.5 bg-primary"></span>
@@ -82,7 +75,7 @@ export default function AboutPage() {
           </div>
         </div>
         
-        <div className="flex justify-between gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
           <ValueCard 
             icon={Users}
             title="Customer First"
@@ -124,16 +117,9 @@ export default function AboutPage() {
       <div className="w-full border-t border-border"></div>
 
       {/* Story Timeline Section */}
-      <section className="w-full bg-white py-16 px-16 flex relative overflow-hidden" style={{ gap: '120px' }}>
-        {/* Dot Grid Left */}
-        <div className="absolute left-8 top-16 grid grid-cols-5 gap-2">
-          {Array.from({ length: 25 }).map((_, i) => (
-            <div key={i} className="w-1.5 h-1.5 rounded-full bg-border"></div>
-          ))}
-        </div>
-        
+      <section className="w-full bg-white py-12 sm:py-16 px-4 sm:px-10 lg:px-16 flex flex-col lg:flex-row gap-8 lg:gap-20 relative overflow-hidden">
         {/* Left Content */}
-        <div className="flex flex-col justify-center" style={{ width: '380px', flexShrink: 0 }}>
+        <div className="w-full lg:w-[380px] flex-shrink-0 flex flex-col justify-center">
           <div className="flex items-center gap-2 mb-4">
             <span className="block w-6 h-0.5 bg-accent-green"></span>
             <span className="text-xs font-medium text-accent-green tracking-widest uppercase">
@@ -141,10 +127,10 @@ export default function AboutPage() {
             </span>
           </div>
           
-          <h2 className="font-headings font-bold text-4xl text-foreground leading-tight mb-2">
+          <h2 className="font-headings font-bold text-3xl sm:text-4xl text-foreground leading-tight mb-2">
             A Journey Driven by
           </h2>
-          <h2 className="font-headings font-bold text-4xl leading-tight mb-6">
+          <h2 className="font-headings font-bold text-3xl sm:text-4xl leading-tight mb-6">
             <span className="text-primary">Passion </span>
             <span className="text-foreground">and </span>
             <span className="text-accent-green">Purpose</span>
@@ -161,14 +147,11 @@ export default function AboutPage() {
           </p>
         </div>
         
-        {/* Timeline - will continue in next message due to size */}
+        {/* Timeline */}
         <TimelineSection />
       </section>
 
       <div className="w-full border-t border-border"></div>
-
-      {/* Team Section - temporarily hidden */}
-      {/* <TeamSection /> */}
 
       {/* Stats Section */}
       <StatsSection />
@@ -185,7 +168,7 @@ export default function AboutPage() {
 // Value Card Component
 function ValueCard({ icon: Icon, title, description, bgColor, iconColor }: any) {
   return (
-    <div className="flex flex-col items-center text-center flex-1">
+    <div className="flex flex-col items-center text-center p-4 rounded-xl border border-gray-100 bg-white shadow-xs">
       <div 
         className="w-16 h-16 rounded-full flex items-center justify-center mb-4"
         style={{ backgroundColor: bgColor }}
@@ -208,49 +191,27 @@ function TimelineSection() {
   ];
 
   return (
-    <div className="flex-1 relative" style={{ height: '490px' }}>
-      {/* SVG Path */}
-      <svg width="480" height="490" className="absolute inset-0">
-        <path
-          d="M 320 65 C 320 125, 160 125, 160 185 C 160 245, 320 245, 320 305 C 320 365, 160 365, 160 425"
-          fill="none"
-          stroke="#e8e8e8"
-          strokeWidth="2"
-        />
-      </svg>
-      
-      {/* Timeline Items */}
+    <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 lg:pt-0">
       {timeline.map((item, idx) => {
         const Icon = item.icon;
-        const positions = [
-          { left: '292px', top: '37px', textLeft: '68px' },
-          { left: '132px', top: '157px', textRight: '68px' },
-          { left: '292px', top: '277px', textLeft: '68px' },
-          { left: '132px', top: '397px', textRight: '68px' },
-        ];
-        const pos = positions[idx];
-        
         return (
-          <div key={idx} className="absolute" style={{ left: pos.left, top: pos.top }}>
+          <div key={idx} className="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-200/70 shadow-xs">
             <div 
-              className="w-14 h-14 rounded-full flex items-center justify-center z-10 relative"
+              className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
               style={{ backgroundColor: item.color }}
             >
-              <Icon className="w-5 h-5 text-white" strokeWidth={2.2} />
+              <Icon className="w-6 h-6 text-white" strokeWidth={2} />
             </div>
-            <div 
-              className="absolute" 
-              style={{ 
-                top: '-8px', 
-                left: pos.textLeft, 
-                right: pos.textRight,
-                width: '180px',
-                textAlign: pos.textRight ? 'right' : 'left'
-              }}
-            >
-              <p className="font-bold text-sm mb-0.5" style={{ color: item.color }}>{item.year}</p>
-              <p className="font-semibold text-sm text-foreground mb-1">{item.title}</p>
-              <p className="text-xs text-muted-foreground leading-relaxed">{item.description}</p>
+            <div>
+              <span className="text-xs font-extrabold tracking-wider uppercase" style={{ color: item.color }}>
+                {item.year}
+              </span>
+              <h4 className="font-headings font-bold text-base text-slate-900 mt-0.5 mb-1">
+                {item.title}
+              </h4>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                {item.description}
+              </p>
             </div>
           </div>
         );
@@ -259,89 +220,38 @@ function TimelineSection() {
   );
 }
 
-// Team Section Component
-function TeamSection() {
-  const team = [
-    { name: 'Arjun Mehta', role: 'CEO & Founder', image: 'https://randomuser.me/api/portraits/men/32.jpg', color: '#2563eb' },
-    { name: 'Priya Sharma', role: 'CTO', image: 'https://randomuser.me/api/portraits/women/44.jpg', color: '#22c55e' },
-    { name: 'Rahul Verma', role: 'Head of Delivery', image: 'https://randomuser.me/api/portraits/men/45.jpg', color: '#f97316' },
-    { name: 'Neha Kapoor', role: 'Head of Marketing', image: 'https://randomuser.me/api/portraits/women/65.jpg', color: '#f97316' },
-  ];
-
-  return (
-    <section className="w-full bg-white py-16 px-16">
-      <div className="flex flex-col items-center mb-10">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="block w-5 h-0.5 bg-primary"></span>
-          <span className="text-xs font-medium text-primary tracking-widest uppercase">OUR TEAM</span>
-          <span className="block w-5 h-0.5 bg-primary"></span>
-        </div>
-        <h2 className="font-headings font-bold text-4xl text-foreground text-center">
-          The Minds Behind <span className="text-primary">Our Success</span>
-        </h2>
-        <p className="text-sm text-muted-foreground text-center mt-3 max-w-lg leading-relaxed">
-          We're a team of innovators, problem solvers, and tech enthusiasts passionate about creating meaningful digital experiences.
-        </p>
-      </div>
-      
-      <div className="flex gap-6 justify-center">
-        {team.map((member, idx) => (
-          <div key={idx} className="flex flex-col items-start rounded-lg overflow-hidden border border-border" style={{ width: '220px' }}>
-            <img src={member.image} className="w-full" style={{ height: '200px', objectFit: 'cover' }} alt={member.name} />
-            <div className="p-4 w-full">
-              <p className="font-semibold text-base text-foreground">{member.name}</p>
-              <p className="text-xs font-medium mb-3" style={{ color: member.color }}>{member.role}</p>
-              <div className="flex items-center gap-3">
-                <a className="text-muted-foreground hover:text-primary cursor-pointer">
-                  <Linkedin className="w-4 h-4" />
-                </a>
-                <a className="text-muted-foreground hover:text-primary cursor-pointer">
-                  <Twitter className="w-4 h-4" />
-                </a>
-                <a className="text-muted-foreground hover:text-primary cursor-pointer">
-                  <Mail className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 // Stats Section Component
 function StatsSection() {
   const stats = [
-    { icon: Briefcase, number: '250+', label: 'Projects Delivered' },
-    { icon: Users, number: '98%', label: 'Client Satisfaction' },
-    { icon: Globe, number: '25+', label: 'Countries Served' },
-    { icon: Award, number: '12+', label: 'Years of Experience' },
+    { icon: Briefcase, number: '15+', label: 'Projects Delivered' },
+    { icon: Users, number: '98%', label: 'Success Rate' },
+    { icon: Globe, number: '2+', label: 'Years of Experience' },
+    { icon: Award, number: '10+', label: 'Team Members' },
   ];
 
   return (
-    <div className="w-full px-16 py-8">
-      <section className="w-full bg-[#1e3a5f] py-12 px-16 flex items-center gap-16 rounded-xl">
-        <div className="flex-1 min-w-0">
-          <div className="w-8 h-0.5 bg-accent-green mb-3"></div>
-          <h2 className="font-headings font-bold text-2xl text-white mb-3 leading-tight">
+    <div className="w-full px-4 sm:px-10 lg:px-16 py-6 sm:py-8">
+      <section className="w-full bg-[#1e3a5f] py-8 sm:py-12 px-6 sm:px-12 flex flex-col lg:flex-row items-center gap-8 lg:gap-16 rounded-2xl shadow-xl">
+        <div className="flex-1 min-w-0 text-center lg:text-left">
+          <div className="w-8 h-0.5 bg-accent-green mb-3 mx-auto lg:mx-0"></div>
+          <h2 className="font-headings font-bold text-2xl sm:text-3xl text-white mb-3 leading-tight">
             Numbers That Reflect Our Impact
           </h2>
-          <p className="text-sm text-white opacity-70 leading-relaxed max-w-xs">
-            Our commitment to excellence is driven by results that speak for themselves.
+          <p className="text-xs sm:text-sm text-white/80 leading-relaxed max-w-md mx-auto lg:mx-0">
+            Our commitment to engineering excellence is driven by real-world performance.
           </p>
         </div>
         
-        <div className="flex flex-1 gap-12 justify-around">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full lg:w-auto flex-1">
           {stats.map((stat, idx) => {
             const Icon = stat.icon;
             return (
-              <div key={idx} className="flex flex-col items-center text-center">
-                <div className="w-14 h-14 rounded-full border border-white opacity-70 flex items-center justify-center mb-3">
-                  <Icon className="w-6 h-6 text-white" strokeWidth={2} />
+              <div key={idx} className="flex flex-col items-center text-center p-3 rounded-xl bg-white/5">
+                <div className="w-12 h-12 rounded-xl border border-white/20 bg-white/10 flex items-center justify-center mb-3">
+                  <Icon className="w-5 h-5 text-white" strokeWidth={2} />
                 </div>
-                <p className="font-headings font-bold text-3xl text-white">{stat.number}</p>
-                <p className="text-xs text-white opacity-70 mt-1">{stat.label}</p>
+                <p className="font-headings font-extrabold text-2xl sm:text-3xl text-white tracking-tight">{stat.number}</p>
+                <p className="text-[11px] sm:text-xs text-white/80 mt-1">{stat.label}</p>
               </div>
             );
           })}
@@ -354,23 +264,26 @@ function StatsSection() {
 // CTA Banner Component
 function CTABanner() {
   return (
-    <section className="w-full px-16 py-12 flex items-center gap-8 bg-white border-t border-border">
-      <div className="w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
+    <section className="w-full px-4 sm:px-10 lg:px-16 py-8 sm:py-12 flex flex-col sm:flex-row items-center gap-6 sm:gap-8 bg-white border-t border-border">
+      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden flex-shrink-0 shadow-md">
         <img
           src="https://images.unsplash.com/photo-1516849677043-ef67c9557e16?w=200&h=200&fit=crop"
           alt="rocket"
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="flex-1">
-        <h3 className="font-headings font-bold text-xl text-foreground mb-1">
+      <div className="flex-1 text-center sm:text-left">
+        <h3 className="font-headings font-bold text-lg sm:text-xl text-foreground mb-1">
           Let's Build Something Amazing Together
         </h3>
-        <p className="text-sm text-muted-foreground">
-          Have a project in mind? We'd love to hear about it.
+        <p className="text-xs sm:text-sm text-muted-foreground">
+          Have a project in mind? We'd love to partner with you.
         </p>
       </div>
-      <button className="bg-primary text-white text-sm font-medium px-6 py-3 rounded-md flex items-center gap-2 hover:bg-opacity-90 transition-colors">
+      <button 
+        onClick={getStartedWithWhatsApp}
+        className="bg-primary text-white text-xs sm:text-sm font-semibold px-6 py-3 rounded-xl flex items-center gap-2 hover:bg-opacity-90 transition-all cursor-pointer shadow-md active:scale-95"
+      >
         <span>Let's Connect</span>
         <ArrowRight className="w-4 h-4" />
       </button>

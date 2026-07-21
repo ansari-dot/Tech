@@ -28,70 +28,47 @@ export default function ServicesPage() {
       />
 
       {/* Hero Section */}
-      <section className="w-full relative overflow-hidden" style={{ minHeight: '380px' }}>
+      <section className="w-full relative overflow-hidden bg-slate-50 min-h-[360px] sm:min-h-[400px] flex items-center">
         {/* Background Banner Image */}
         <div className="absolute inset-0 w-full h-full">
           <img
             src="/assets/home/servicebanner.png"
             alt="Services Banner"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-right opacity-90 sm:opacity-100"
           />
         </div>
 
-        {/* White Gradient Overlay for Text Area */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white to-transparent" style={{ width: '50%' }}></div>
+        {/* White Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/30 sm:to-transparent w-full sm:w-[70%] lg:w-[50%]"></div>
 
-        <div className="flex items-center relative" style={{ minHeight: '380px' }}>
+        <div className="flex items-center relative w-full max-w-7xl mx-auto px-5 sm:px-10 lg:px-20 py-10 sm:py-16">
           {/* Left Content */}
-          <div className="px-20 py-16 flex-1 z-10 relative max-w-lg">
-            <div className="text-accent-green text-sm font-semibold mb-3 tracking-wide">
+          <div className="flex-1 z-10 relative max-w-lg w-full">
+            <div className="text-accent-green text-xs sm:text-sm font-semibold mb-3 tracking-wide">
               SMART SOLUTIONS
             </div>
-            <h1 className="font-headings text-4xl font-bold text-foreground leading-tight mb-4">
+            <h1 className="font-headings text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-4">
               Smarter Solutions<br />
               for a <span className="text-primary">Smarter Tomorrow</span>
             </h1>
-            <p className="text-muted-foreground text-sm max-w-xs leading-relaxed mb-6">
+            <p className="text-muted-foreground text-xs sm:text-sm max-w-sm leading-relaxed mb-6">
               We craft innovative digital solutions that address real business challenges and create measurable impact.
             </p>
             <div className="w-10 h-1 bg-primary rounded"></div>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {Array.from({ length: 9 }).map((_, i) => (
-                <div key={i} className="w-2 h-2 rounded-full bg-border"></div>
-              ))}
-            </div>
           </div>
 
-          {/* Right side - Banner visible through gradient */}
-          <div className="flex-1"></div>
+          <div className="hidden lg:block flex-1"></div>
         </div>
       </section>
 
-      {/* Trusted By Bar (Temporarily Hidden) */}
-      {/* <section className="w-full bg-white py-10 border-b border-border">
-        <div className="text-center mb-6">
-          <span className="text-xs font-semibold text-primary tracking-widest">
-            TRUSTED BY BUSINESSES WORLDWIDE —
-          </span>
-        </div>
-        <div className="flex items-center justify-center gap-16">
-          {['wave', 'kanba', 'UTOSIA', 'treehouse', 'Volume', 'Cloud'].map((name, idx) => (
-            <div key={idx} className="flex items-center gap-2 text-muted-foreground">
-              <div className="w-4.5 h-4.5 rounded-full bg-gray-200"></div>
-              <span className="text-sm font-semibold">{name}</span>
-            </div>
-          ))}
-        </div>
-      </section> */}
-
       {/* Approach Section */}
-      <section className="w-full bg-white py-16 px-20">
-        <div className="flex gap-8 items-stretch">
-          <div className="flex-1 max-w-xs">
+      <section className="w-full bg-white py-12 sm:py-16 px-4 sm:px-10 lg:px-20">
+        <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-stretch">
+          <div className="w-full lg:w-72 flex-shrink-0">
             <div className="text-accent-green text-xs font-semibold tracking-widest mb-3">
               OUR APPROACH
             </div>
-            <h2 className="font-headings text-3xl font-bold text-foreground leading-tight mb-4">
+            <h2 className="font-headings text-2xl sm:text-3xl font-bold text-foreground leading-tight mb-4">
               Solutions That<br />
               <span className="text-primary">Empower Growth</span>
             </h2>
@@ -100,42 +77,44 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          <ApproachCard 
-            icon={Target}
-            title="Understand"
-            description="We analyze your business challenges and goals to identify the right opportunities."
-            bgColor="#dcfce7"
-            iconColor="#22c55e"
-          />
-          <ApproachCard 
-            icon={Lightbulb}
-            title="Innovate"
-            description="We design innovative solutions tailored to your unique business needs."
-            bgColor="#dbeafe"
-            iconColor="#2563eb"
-          />
-          <ApproachCard 
-            icon={Rocket}
-            title="Deliver"
-            description="We build, deploy, and support solutions that deliver real results and long-term impact."
-            bgColor="#ede9fe"
-            iconColor="#8b5cf6"
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 flex-1">
+            <ApproachCard 
+              icon={Target}
+              title="Understand"
+              description="We analyze your business challenges and goals to identify the right opportunities."
+              bgColor="#dcfce7"
+              iconColor="#22c55e"
+            />
+            <ApproachCard 
+              icon={Lightbulb}
+              title="Innovate"
+              description="We design innovative solutions tailored to your unique business needs."
+              bgColor="#dbeafe"
+              iconColor="#2563eb"
+            />
+            <ApproachCard 
+              icon={Rocket}
+              title="Deliver"
+              description="We build, deploy, and support solutions that deliver real results and long-term impact."
+              bgColor="#ede9fe"
+              iconColor="#8b5cf6"
+            />
+          </div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="w-full bg-gray-100 py-16 px-20">
+      <section className="w-full bg-gray-100 py-12 sm:py-16 px-4 sm:px-10 lg:px-20">
         <div className="text-center mb-10">
           <div className="text-accent-green text-xs font-semibold tracking-widest mb-3">
             WHAT WE DO
           </div>
-          <h2 className="font-headings text-3xl font-bold text-foreground">
+          <h2 className="font-headings text-2xl sm:text-3xl font-bold text-foreground">
             End-to-End <span className="text-primary border-b-2 border-primary pb-1">Digital Solutions</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16 lg:gap-y-24 lg:pb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 lg:pb-16">
           <ServiceCard 
             index={0}
             icon={Monitor}
@@ -212,10 +191,10 @@ export default function ServicesPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="w-full bg-gray-50 py-12 px-20">
-        <div className="flex items-center gap-16">
+      <section className="w-full bg-gray-50 py-12 px-4 sm:px-10 lg:px-20">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
           {/* Left Dark Card */}
-          <div className="bg-slate-900 rounded-3xl p-12 w-96" style={{ borderRadius: '80px 40px 80px 40px' }}>
+          <div className="bg-slate-900 rounded-3xl p-8 sm:p-12 w-full lg:w-96 shadow-xl" style={{ borderRadius: '40px' }}>
             <div className="text-accent-green text-xs font-semibold tracking-widest mb-6">
               WHY CHOOSE US
             </div>
@@ -230,21 +209,21 @@ export default function ServicesPage() {
           </div>
 
           {/* Right Stats Grid */}
-          <div className="flex flex-1 items-center justify-between gap-12 px-8">
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-16 h-16 rounded-2xl bg-green-50 flex items-center justify-center mb-1">
-                <Briefcase className="w-8 h-8 text-accent-green" strokeWidth={1.5} />
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full flex-1">
+            <div className="flex flex-col items-center gap-3 p-4 bg-white rounded-2xl shadow-xs border border-gray-100">
+              <div className="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center mb-1">
+                <Briefcase className="w-7 h-7 text-accent-green" strokeWidth={1.5} />
               </div>
-              <div className="font-headings font-bold text-3xl text-foreground">250+</div>
+              <div className="font-headings font-bold text-2xl sm:text-3xl text-foreground">15+</div>
               <div className="text-muted-foreground text-xs text-center">Projects Delivered</div>
             </div>
 
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mb-1">
-                <Users className="w-8 h-8 text-primary" strokeWidth={1.5} />
+            <div className="flex flex-col items-center gap-3 p-4 bg-white rounded-2xl shadow-xs border border-gray-100">
+              <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center mb-1">
+                <Users className="w-7 h-7 text-primary" strokeWidth={1.5} />
               </div>
-              <div className="font-headings font-bold text-3xl text-foreground">98%</div>
-              <div className="text-muted-foreground text-xs text-center">Client Satisfaction</div>
+              <div className="font-headings font-bold text-2xl sm:text-3xl text-foreground">98%</div>
+              <div className="text-muted-foreground text-xs text-center">Success Rate</div>
             </div>
 
             <div className="flex flex-col items-center gap-3">
@@ -267,18 +246,19 @@ export default function ServicesPage() {
       </section>
 
       {/* Industry Solutions */}
-      <section className="w-full bg-gray-50 py-16 px-20">
-        <div className="text-center mb-10">
-          <div className="text-accent-green text-xs font-semibold tracking-widest mb-3">
+      <section className="w-full bg-gray-50 py-12 sm:py-16 px-4 sm:px-10 lg:px-20">
+        <div className="text-center mb-8 sm:mb-10">
+          <div className="text-accent-green text-xs font-semibold tracking-widest mb-3 uppercase">
             INDUSTRY SOLUTIONS
           </div>
-          <h2 className="font-headings text-3xl font-bold text-foreground">
+          <h2 className="font-headings text-2xl sm:text-3xl font-bold text-foreground">
             Technology Solutions for <span className="text-primary">Every Industry</span>
           </h2>
           <div className="w-12 h-1 bg-primary rounded mx-auto mt-3"></div>
         </div>
 
-        <div className="flex gap-6 mb-8 justify-center">
+        {/* Responsive Horizontal Scroll Tab Bar */}
+        <div className="flex items-center gap-2 sm:gap-4 mb-8 overflow-x-auto pb-3 max-w-full justify-start sm:justify-center px-1">
           <IndustryTab 
             icon={HeartPulse}
             label="Healthcare"
@@ -321,36 +301,77 @@ export default function ServicesPage() {
             onClick={() => setActiveIndustry("logistics")}
             color="#22c55e"
           />
-          <div className="flex items-center text-muted-foreground px-4">
-            <span className="text-2xl">...</span>
-          </div>
         </div>
 
-        <div className="flex gap-8 items-center bg-white rounded-3xl p-8 shadow-sm">
-          <div className="flex-1 rounded-2xl overflow-hidden" style={{ maxWidth: '480px' }}>
-            <img
-              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop"
-              className="w-full h-full object-cover"
-              style={{ aspectRatio: '4/3' }}
-              alt="Healthcare"
-            />
-          </div>
-          <div className="flex-1 flex flex-col">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="font-headings font-bold text-xl text-foreground">Healthcare</span>
-              <div className="w-12 h-1 bg-primary rounded"></div>
+        {/* Active Industry Content Card - Stacks vertically on mobile */}
+        {(() => {
+          const industryDetails: any = {
+            healthcare: {
+              title: "Healthcare",
+              description: "We build secure, compliant, and scalable healthcare solutions that improve patient outcomes and streamline operations.",
+              image: "/assets/industries/Education.png",
+              features: ["Patient Management Systems", "HIPAA Health Data Security", "Telemedicine Portals", "AI Diagnostics & Records"]
+            },
+            fintech: {
+              title: "FinTech",
+              description: "Powering financial services with robust, secure, and intelligent solutions that enhance trust and efficiency.",
+              image: "/assets/industries/fintech.png",
+              features: ["Real-Time Payment Gateways", "Automated Risk & Fraud Detection", "Core Banking Microservices", "RegTech & Compliance"]
+            },
+            retail: {
+              title: "Retail & E-commerce",
+              description: "Delivering seamless digital experiences, smart inventory management, and data-driven retail solutions.",
+              image: "/assets/industries/retail.png",
+              features: ["Headless E-commerce Storefronts", "Omnichannel Inventory Sync", "AI Product Recommendations", "POS & Payment Integrations"]
+            },
+            manufacturing: {
+              title: "Manufacturing",
+              description: "Optimizing production, supply chain, and operations with custom software built for manufacturing excellence.",
+              image: "/assets/industries/manufacturing.png",
+              features: ["IIoT Sensor Monitoring", "Predictive Equipment Maintenance", "Supply Chain Tracking", "Smart Factory Analytics"]
+            },
+            education: {
+              title: "Education & EdTech",
+              description: "Enabling learning with innovative EdTech solutions that engage students and empower institutions.",
+              image: "/assets/industries/Education.png",
+              features: ["Learning Management Systems (LMS)", "AI Exam & Score Analytics", "Virtual Classrooms", "Student Record Portals"]
+            },
+            logistics: {
+              title: "Logistics & Supply Chain",
+              description: "Building intelligent systems that improve visibility, reduce costs, and ensure on-time deliveries.",
+              image: "/assets/industries/Logistics & Supply chain.png",
+              features: ["Fleet GPS & Route Optimization", "Automated Warehouse Management", "Real-Time Shipment Tracking", "Dispatcher Dashboards"]
+            }
+          };
+
+          const current = industryDetails[activeIndustry] || industryDetails.healthcare;
+
+          return (
+            <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 items-center bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-md border border-slate-100">
+              <div className="w-full lg:w-1/2 h-52 sm:h-72 rounded-2xl overflow-hidden shadow-xs shrink-0">
+                <img
+                  src={current.image}
+                  className="w-full h-full object-cover"
+                  alt={current.title}
+                />
+              </div>
+              <div className="w-full lg:w-1/2 flex flex-col">
+                <div className="flex items-center gap-3 mb-3">
+                  <h3 className="font-headings font-bold text-xl sm:text-2xl text-foreground">{current.title}</h3>
+                  <div className="w-12 h-1 bg-primary rounded"></div>
+                </div>
+                <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-6">
+                  {current.description}
+                </p>
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {current.features.map((feat: string, idx: number) => (
+                    <FeatureItem key={idx} text={feat} />
+                  ))}
+                </ul>
+              </div>
             </div>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              We build secure, compliant, and scalable healthcare solutions that improve patient outcomes and streamline operations.
-            </p>
-            <ul className="flex flex-col gap-3">
-              <FeatureItem text="Patient Management Systems" />
-              <FeatureItem text="Health Data Security" />
-              <FeatureItem text="Telemedicine Solutions" />
-              <FeatureItem text="AI-Powered Diagnostics" />
-            </ul>
-          </div>
-        </div>
+          );
+        })()}
       </section>
 
       {/* CTA Section */}
@@ -466,7 +487,7 @@ function IndustryTab({ icon: Icon, label, active, onClick, color }: any) {
   return (
     <button 
       onClick={onClick}
-      className={`flex flex-col items-center gap-2 pb-3 px-6 text-xs font-semibold border-b-2 transition-colors ${
+      className={`flex flex-col items-center gap-2 pb-3 px-4 sm:px-6 text-xs font-semibold border-b-2 transition-colors shrink-0 whitespace-nowrap cursor-pointer ${
         active ? 'border-primary' : 'border-transparent'
       }`}
     >
